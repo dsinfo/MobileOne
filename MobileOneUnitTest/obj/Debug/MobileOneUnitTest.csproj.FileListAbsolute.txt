@@ -1,0 +1,7 @@
+D:\apps\MobileOne\MobileOneUnitTest\bin\Debug\MobileOneUnitTest.dll
+D:\apps\MobileOne\MobileOneUnitTest\bin\Debug\MobileOneUnitTest.pdb
+D:\apps\MobileOne\MobileOneUnitTest\bin\Debug\nunit.framework.dll
+D:\apps\MobileOne\MobileOneUnitTest\bin\Debug\nunit.framework.xml
+D:\apps\MobileOne\MobileOneUnitTest\obj\Debug\MobileOneUnitTest.csprojResolveAssemblyReference.cache
+D:\apps\MobileOne\MobileOneUnitTest\obj\Debug\MobileOneUnitTest.dll
+D:\apps\MobileOne\MobileOneUnitTest\obj\Debug\MobileOneUnitTest.pdb

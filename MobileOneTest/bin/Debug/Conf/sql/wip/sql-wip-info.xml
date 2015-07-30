@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="WIP" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+  <statements>
+    <statement id="FindUser" parameterClass="System.String" resultClass="System.String" >
+      SELECT Name
+      FROM BasUser
+      WHERE Id =  #value#
+    </statement>
+
+  </statements>
+  
+  
+</sqlMap>

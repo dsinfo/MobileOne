@@ -1,0 +1,16 @@
+D:\apps\MobileOne\MobileOne\bin\conf\sql\bas\sql-bas-info.xml
+D:\apps\MobileOne\MobileOne\bin\conf\sql\ras\sql-ras-rpt.xml
+D:\apps\MobileOne\MobileOne\bin\providers.config
+D:\apps\MobileOne\MobileOne\bin\SqlMap.config
+D:\apps\MobileOne\MobileOne\bin\MobileOne.dll
+D:\apps\MobileOne\MobileOne\bin\MobileOne.pdb
+D:\apps\MobileOne\MobileOne\bin\IBatisNet.Common.dll
+D:\apps\MobileOne\MobileOne\bin\IBatisNet.Common.Logging.Log4Net.dll
+D:\apps\MobileOne\MobileOne\bin\IBatisNet.DataMapper.dll
+D:\apps\MobileOne\MobileOne\bin\log4net.dll
+D:\apps\MobileOne\MobileOne\bin\Newtonsoft.Json.dll
+D:\apps\MobileOne\MobileOne\bin\Castle.DynamicProxy.dll
+D:\apps\MobileOne\MobileOne\obj\Debug\MobileOne.dll
+D:\apps\MobileOne\MobileOne\obj\Debug\MobileOne.pdb
+D:\apps\MobileOne\MobileOne\obj\Debug\MobileOne.csprojResolveAssemblyReference.cache
+D:\apps\MobileOne\MobileOne\bin\log4net.xml

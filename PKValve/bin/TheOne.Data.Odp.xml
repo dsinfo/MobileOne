@@ -1,0 +1,516 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheOne.Data.Odp</name>
+    </assembly>
+    <members>
+        <member name="T:TheOne.Data.Odp.OdpParamCollection">
+            <summary>
+            OracleParameter 객체들에 대한 컬렉션을 제공한다.
+            </summary>
+            <remarks>
+            OracleParameter들에 대한 컬렉션으로써 Parameter 이름을 통해 OracleParameter 객체에
+            접근 가능하도록 해준다. 또한 이 컬렉션은 <b>null</b> 로 설정된 OracleParameter 객체의
+            값을 DBNull 로 변경해 주기위한 SetNullToDBNull 메서드를 제공한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.#ctor">
+            <summary>
+            <see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.#ctor(System.Boolean)">
+            <summary>
+            지정된 조건으로 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="useDBNull"><b>true</b>이면 추가되는 Parameter의 닷넷 <b>null</b> 값을 DBNull로 자동변환한다.</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,System.Object)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="paramValue">Parameter 값</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다..</returns>
+            <remarks>
+            이 메서드는 Parameter 이름과 값만을 이용하여 OracleParameter 객체를 초기화 한다.
+            Parameter의 타입이 명시되지 않기 때문에 권장할만한 패턴은 아니다.
+            <br/><br/>
+            Parmeter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,Oracle.DataAccess.Client.OracleDbType)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="dbType">Parameter 타입</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다.</returns>
+            <remarks>
+            Parameter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,Oracle.DataAccess.Client.OracleDbType,System.Int32,System.Data.ParameterDirection)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="dbType">Parameter 타입</param>
+            <param name="size">Parameter 길이</param>
+            <param name="direction">Parameter 방향(input, output, return)</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다.</returns>
+            <remarks>
+            Parameter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            <br/>
+            문자열 출력 매개변수를 추가하는 경우에는 출력값의 최대 길이를 지정해야 한다. 문자열 출력 매개변수의 길이를 0으로 
+            지정하면 예외가 발생하고, 최대 길이보다 작은 값을 지정하는 경우에는 실제값의 일부분만 출력될 수 있다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,Oracle.DataAccess.Client.OracleDbType,System.Object)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="dbType">Parameter 타입</param>
+            <param name="paramValue">Parameter 값</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다.</returns>
+            <remarks>
+            Parameter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,Oracle.DataAccess.Client.OracleDbType,System.Int32,System.Object)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="dbType">Parameter 타입</param>
+            <param name="size">Parameter 길이</param>
+            <param name="paramValue">Parameter 값</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다..</returns>
+            <remarks>
+            Parameter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.Add(System.String,Oracle.DataAccess.Client.OracleDbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/>를 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/>에 추가 한다.
+            </summary>
+            <param name="parameterName">Parameter 이름</param>
+            <param name="dbType">Parameter 타입</param>
+            <param name="size">Parameter 길이</param>
+            <param name="direction">Parameter 방향(input, output, return)</param>
+            <param name="paramValue">Parameter 값</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다.</returns>
+            <remarks>
+            Parameter는 Parameter 이름과 더불어 타입, 길이를 명시해 주는 것이 좋다.
+            Int, DateTime 과 같이 길이가 고정되어 있는 타입에 대해서는 길이를 주지 않아도 되지만
+            VarChar 와 같이 가변 길이의 데이터 타입은 길이를 명시 해주는 것이 DB의 부하를
+            조금이나마 줄여 주는 것이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpParamCollection.CreateParameter(System.String,System.Data.DbType,System.Int32,System.Data.ParameterDirection,System.Object)">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 클래스의 새 인스턴스를 초기화하고 반환한다. 
+            </summary>
+            <param name="name">Parameter 이름</param>
+            <param name="type">Parameter 타입</param>
+            <param name="size">Parameter 길이</param>
+            <param name="direction">Parameter 방향</param>
+            <param name="value">Parameter 값.</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="T:TheOne.Data.Odp.Resources.Default">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_BeginTrans_1">
+            <summary>
+              트랜젝션이 이미 시작되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_BeginTrans_2">
+            <summary>
+              트랜젝션 시작과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_BeginTrans_3">
+            <summary>
+              DB가 열리지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_CommitTrans_1">
+            <summary>
+              트랜젝션이 시작되지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_CommitTrans_2">
+            <summary>
+              트랜젝션 commit과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_CommitTrans_3">
+            <summary>
+              DB가 열리지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_RollbackTrans_1">
+            <summary>
+              트랜젝션이 시작되지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_RollbackTrans_2">
+            <summary>
+              트랜잭션 Rollback과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpDbAccess_RollbackTrans_3">
+            <summary>
+              DB가 열리지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpParamCollection_Add_1">
+            <summary>
+              동일한 이름을 가진 파라메터가 이미 존재합니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.Resources.Default.OdpParamCollection_CreateParameter_1">
+            <summary>
+              동일한 이름을 가진 파라메터가 이미 존재합니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Data.Odp.OdpDbAccess">
+            <summary>
+            OdpDbAccess 클래스는 <see cref="T:TheOne.Data.DbAccess">DbAccess</see> 추상 클래스의 concreate 클래스로서 ODP.NET을 통해
+            데이터소스에 접근하는 데이터 액세스 Helper 클래스 이다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.#ctor(System.String)">
+            <summary>
+            매개변수로 제공된 ConnectionString값을 연결문자열로 사용하는
+            <see cref="T:TheOne.Data.Odp.OdpDbAccess"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="connectionString">connection string 값</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.#ctor(System.String,System.Boolean)">
+            <summary>
+            매개변수로 제공된 ConnectionString값을 연결문자열로 사용하는
+            <see cref="T:TheOne.Data.Odp.OdpDbAccess"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            openConn 값이 <b>true</b>일 때, DB 접속 시도가 실패한 경우 발생한다.
+            </exception>
+            <param name="connectionString">connection string 값</param>
+            <param name="openConn">Connection open 여부</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.#ctor(System.String,System.String,System.String)">
+            <summary>
+            데이터 소스명, 사용자 ID, 암호를 이용하여 연결문자열을 만들고
+            <see cref="T:TheOne.Data.Odp.OdpDbAccess"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="dataSource">데이터 소스명</param>
+            <param name="userID">사용자 ID</param>
+            <param name="password">암호</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.#ctor(System.String,System.String,System.String,System.Boolean)">
+            <summary>
+            데이터 소스명, 사용자 ID, 암호를 이용하여 연결문자열을 만들고
+            <see cref="T:TheOne.Data.Odp.OdpDbAccess"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            openConn 상태가 <b>true</b>일 때 또는 DB 접속 시도가 실패한 경우 발생한다.
+            </exception>
+            <param name="dataSource">데이터 소스명</param>
+            <param name="userID">사용자 ID</param>
+            <param name="password">암호</param>
+            <param name="openConn">Connection open 여부</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.InitConnection(System.String,System.Boolean)">
+            <summary>
+            매개변수로 제공된 ConnectionString값을 연결문자열로 사용하는 SqlConnection 객체를 생성한다. 
+            </summary>
+            <param name="connectionString">Connection String 값</param>
+            <param name="openConn">Connection open 여부</param>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.Open">
+            <summary>
+            데이터베이스에 연결을 한다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            DB 접속시 오류가 발생하면 발생한다. 실제 예외인 OracleException 은
+            InnerException 을 통해 접근이 가능하다.
+            </exception>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.Close">
+            <summary>
+            데이터베이스에 대한 연결을 닫는다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            DB 접속시 오류가 발생하면 발생한다. 실제 예외인 SqlException 은
+            InnerException 을 통해 접근이 가능하다.
+            </exception>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CreateCmd(System.String,System.Data.CommandType,System.Data.IDataParameter[])">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleCommand"/> 클래스의 새 인스턴스를 만들고 실행될 구문 또는 저장 프로시저명과 명령 형식, 매개변수 정보등을 설정한다.
+            </summary>
+            <param name="commandText">실행될 구문 또는 저장 프로시저명</param>
+            <param name="commandType">명령 형식(CommandType)을 지정</param>
+            <param name="parameters">OracleCommand에 추가될 매개변수 정보</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleCommand"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmd(System.Data.IDbCommand,System.String,System.Data.DataSet,System.Data.IDataParameter[])">
+            <summary>
+            일반적인 SQL 문장 혹은 저장 프로시저를 실행한다.
+            실행결과는 매개변수로 지정된 DataSet에 채운다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="command">SQL 문장 또는 저장 프로시저를 실행할 Command 객체</param>
+            <param name="tableName">결과를 저장할 DataSet 내의 테이블 이름</param>
+            <param name="ds">결과를 저장할 DataSet 객체</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 수행후 반환된 결과 집합의 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdNonQuery(System.Data.IDbCommand,System.Data.IDataParameter[])">
+            <summary>
+            결과 집합이 없는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="command">SQL 문장 또는 저장 프로시저를 실행할 Command 객체</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 의 실행 후 영향을 받는 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdReader(System.Data.IDbCommand,System.Data.IDataParameter[])">
+            <summary>
+            DataReader를 반환하는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="command">SQL 문장 또는 저장 프로시저를 실행할 Command 객체</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleDataReader"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdScalar(System.Data.IDbCommand,System.Data.IDataParameter[])">
+            <summary>
+            단일 값(scalar value)을 반환하는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <remarks>
+            SQL 쿼리 혹은 저장 프로시저의 스칼라 값이라 함은 결과셋의 첫번째 레코드의
+            첫번째 컬럼의 값을 말한다.
+            </remarks>
+            <param name="command">SQL 문장 또는 저장 프로시저를 실행할 Command 객체</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장 혹은 저장 프로시저 결과에 대한 scalar 값을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdTableMapping(System.Data.IDbCommand,System.String,System.String[],System.Data.DataSet,System.Data.IDataParameter[])">
+            <summary>
+            2개 이상의 결과셋을 반환하는 SQL 문장 혹은 저장 프로시저를 수행하고
+            결과를 테이블 매핑을 통해 지정된 DataSet 에 채운다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="command">SQL 문장 또는 저장 프로시저를 실행할 Command 객체</param>
+            <param name="tableName">결과를 저장할 DataSet 내의 테이블 이름</param>
+            <param name="mappingNames">DataSet안의 Table이름이과의 일치</param>
+            <param name="ds">DataSet의 DataSet을 반환한다.</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 수행후 첫번째 결과 집합의 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmd(System.String,System.Data.CommandType,System.String,System.Data.DataSet,System.Data.IDataParameter[])">
+            <summary>
+            일반적인 SQL 문장 혹은 저장 프로시저를 실행한다.
+            실행결과는 매개변수로 지정된 DataSet에 채운다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="commandText">stored procedure 이름 또는 SQL쿼리 내용</param>
+            <param name="commandType">commandText 매개변수가 어떠한 명령인지를 나타내는 CommandType</param>
+            <param name="tableName">결과를 저장할 DataSet 내의 테이블 이름</param>
+            <param name="ds">결과를 저장할 DataSet 객체</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 수행후 반환된 결과 집합의 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdNonQuery(System.String,System.Data.CommandType,System.Data.IDataParameter[])">
+            <summary>
+            결과 집합이 없는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="commandText">stored procedure 이름 또는 SQL쿼리내용</param>
+            <param name="commandType">commandText 매개변수가 어떠한 명령인지를 나타내는 CommandType</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 의 실행 후 영향을 받는 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdReader(System.String,System.Data.CommandType,System.Data.IDataParameter[])">
+            <summary>
+            DataReader를 반환하는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="commandText">stored procedure 이름 또는 SQL쿼리내용</param>
+            <param name="commandType">commandText 매개변수가 어떠한 명령인지를 나타내는 CommandType</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns><see cref="T:Oracle.DataAccess.Client.OracleDataReader"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdScalar(System.String,System.Data.CommandType,System.Data.IDataParameter[])">
+            <summary>
+            단일 값(scalar value)을 반환하는 SQL 문장 혹은 저장 프로시저를 실행한다. 
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <remarks>
+            SQL 쿼리 혹은 저장 프로시저의 스칼라 값이라 함은 결과셋의 첫번째 레코드의
+            첫번째 컬럼의 값을 말한다.
+            </remarks>
+            <param name="commandText">stored procedure 이름 또는 SQL쿼리내용</param>
+            <param name="commandType">commandText 매개변수가 어떠한 명령인지를 나타내는 CommandType</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장 혹은 저장 프로시저 결과에 대한 scalar 값을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.ExecuteCmdTableMapping(System.String,System.Data.CommandType,System.String,System.String[],System.Data.DataSet,System.Data.IDataParameter[])">
+            <summary>
+            2개 이상의 결과셋을 반환하는 SQL 문장 혹은 저장 프로시저를 수행하고
+            결과를 테이블 매핑을 통해 지정된 DataSet 에 채운다.
+            </summary>
+            <exception cref="T:TheOne.Data.DBException">
+            지정된 커맨드를 수행하는 도중 DB 측에서 오류가 발생하면 발생한다.
+            구체적인 상세 예외는 InnerException을 통해 접근이 가능하다.
+            </exception>
+            <param name="commandText">Stored procedure 이름 또는 SQL쿼리내용</param>
+            <param name="tableName">결과를 저장할 DataSet 내의 테이블 이름</param>
+            <param name="mappingNames">DataSet안의 Table이름이과의 일치</param>
+            <param name="commandType">commandText 매개변수가 어떠한 명령인지를 나타내는 CommandType</param>
+            <param name="ds">DataSet의 DataSet을 반환한다.</param>
+            <param name="parameters">IDataParameter객체의 매개변수 배열</param>
+            <returns>SQL 문장(SP) 수행후 첫번째 결과 집합의 행의 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CreateParameter">
+            <summary>
+            <see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 클래스의 새 인스턴스를 초기화하고 반환한다.
+            </summary>
+            <returns>OracleParameter 객체</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CreateParameter(System.String,System.Object)">
+            <summary>
+            지정된 이름/값으로 <see cref="T:Oracle.DataAccess.Client.OracleParameter"/> 클래스의 새 인스턴스를 초기화하고 반환한다.
+            </summary>
+            <param name="paramName">Parameter 이름</param>
+            <param name="paramValue">Parameter 값</param>
+            <returns>OracleParameter 객체</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CreateParamCollection">
+            <summary>
+            <see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 클래스의 새 인스턴스를 초기화하고 반환한다.
+            </summary>
+            <returns> <see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CreateParamCollection(System.Boolean)">
+            <summary>
+            지정된 조건을 사용하여 <see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 클래스의 새 인스턴스를 초기화하고 반환한다.
+            </summary>
+            <param name="useDBNull"><b>true</b>이면 Parameter 추가시에 닷넷 <b>null</b>을 가지는 객체의 Value값을 DBNull.Value 값으로 자동 변환한다.</param>
+            <returns><see cref="T:TheOne.Data.Odp.OdpParamCollection"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.BeginTrans(System.Data.IsolationLevel)">
+            <summary>
+            로컬 트랜잭션을 시작한다.
+            </summary>
+            <param name="level">트랜잭션 IsolationLevel</param>
+            <remarks>
+            이 메서드 호출 후, 모든 커맨드는 CommitTrans/RollbackTrans 메서드가 호출
+            되기 전까지 트랜잭션 문맥하에서 수행되게 된다.
+            COM+를 사용하지 않을 때, 수동 트랜잭션(manual transaction)으로서 사용되며
+            Transaction 객체는 이 클래스의 필드로서 저장된다. Transaction 객체에 대한
+            접근은 <see cref="P:TheOne.Data.Odp.OdpDbAccess.Transaction">Transaction</see>프로퍼티를 통해 가능하다.
+            트랜잭션은 해당 DB에 대해서만 수행되며 분산 트랜잭션이 아니다. 따라서
+            CommitTrans 메서드나 RollbackTrans 메서드를 통해 트랜잭션을 commit 혹은
+            rollback 해야 한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.CommitTrans">
+            <summary>
+            로컬 트랜잭션을 Commit 한다.
+            </summary>
+            <remarks>
+            BeginTrans 메서드를 통해 시작된 트랜잭션을 commit 한다. 이 메서드가
+            호출되기 전에 <see cref="M:TheOne.Data.Odp.OdpDbAccess.BeginTrans(System.Data.IsolationLevel)">BeginTrans</see>가 호출되어야 한다.
+            이 메서드는 COM+의 자동 트랜잭션(automatic transaction)을 사용하지 않을
+            때에만 사용되어야 한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Data.Odp.OdpDbAccess.RollbackTrans">
+            <summary>
+            로컬 트랜잭션을 Rollback 한다.
+            </summary>
+            <remarks>
+            BeginTrans 메서드를 통해 시작된 트랜잭션을 rollback 한다. 이 메서드가
+            호출되기 전에 <see cref="M:TheOne.Data.Odp.OdpDbAccess.BeginTrans(System.Data.IsolationLevel)">BeginTrans</see>가 호출되어야 한다.
+            이 메서드는 COM+의 자동 트랜잭션(automatic transaction)을 사용하지 않을
+            때에만 사용되어야 한다.
+            </remarks>
+        </member>
+        <member name="P:TheOne.Data.Odp.OdpDbAccess.Connection">
+            <summary>
+            <see cref="T:TheOne.Data.DbAccess"/> 클래스가 사용하는 Connection 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.OdpDbAccess.Transaction">
+            <summary>
+            <see cref="T:TheOne.Data.DbAccess"/> 클래스가 사용하는 Transaction 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Data.Odp.OdpDbAccess.CommandTimeout">
+            <summary>
+            command 객체의 CommandTimeout값을 가져오거나 설정한다.
+            </summary>
+        </member>
+    </members>
+</doc>

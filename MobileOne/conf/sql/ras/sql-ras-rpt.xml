@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="RAS" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <!-- Statements 정의 -->
+  <statements>
+    
+    <!-- 설비카운트 상태정보 수집 -->
+    <statement id="MRasEcnSts_FIND" parameterClass="MobileOne.model.ras.MRasEcnStsVO" resultMap="mrasecnsts-result" >
+      SELECT line_cd, eq_cd, sum(eqcnt_qty) qty
+      FROM mesmgr.mrasecnsts
+      WHERE plant_cd = '3010'
+      AND eqcnt_qty > 0
+      AND eq_cd = #eq_cd#
+      GROUP BY line_cd, eq_cd
+      ORDER BY line_cd, eq_cd
+    </statement>
+
+    <statement id="MRasEcnSts_SELECT" parameterClass="MobileOne.model.ras.MRasEcnStsVO" resultMap="mrasecnsts-result" >
+      SELECT line_cd, eq_cd, sum(eqcnt_qty) qty
+        FROM mesmgr.mrasecnsts
+        WHERE plant_cd = '3010'
+          AND eqcnt_qty > 0
+        GROUP BY line_cd, eq_cd
+        ORDER BY line_cd, eq_cd
+    </statement>
+
+   
+  </statements>
+
+
+  <!-- Result Map 정의 -->
+  <resultMaps>
+    <resultMap id="mrasecnsts-result" class="MobileOne.model.ras.MRasEcnStsVO">
+      <result property="line_cd" column="line_cd" dbType="Varchar"/>
+      <result property="eq_cd"   column="eq_cd" dbType="Varchar"/>
+      <result property="qty"   column="qty" dbType="Number"/>
+    </resultMap>
+    
+  </resultMaps>  
+  
+</sqlMap>

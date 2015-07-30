@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="BAS" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <statements>
+    <statement id="EsaUser_FIND" parameterClass="MobileOne.model.bas.EsaUserVO" resultMap="esaUserMap" >
+      SELECT usr_ID, usr_NM, usr_En_NM, dept_CD, plant_CD
+        FROM EsaUser
+       WHERE usr_ID =  #usr_ID#
+    </statement>
+
+    <statement id="EsaMenu_SELECT" parameterClass="MobileOne.model.bas.EsaMenuVO" resultMap="esaMenuMap" >
+      SELECT menu_ID, menu_NM, menu_url, menu_group_ID, menu_group_NM
+      FROM EsaMenu
+    </statement>
+  </statements>
+
+  
+  
+  <resultMaps>
+    <resultMap id="esaUserMap" class="MobileOne.model.bas.EsaUserVO">
+      <result property="usr_ID" column="usr_ID" dbType="Varchar"/>
+      <result property="usr_NM" column="usr_NM" dbType="Varchar"/>
+      <result property="usr_En_NM" column="usr_En_NM" dbType="Varchar"/>
+      <result property="dept_CD" column="dept_CD" dbType="Varchar"/>
+      <result property="plant_CD" column="plant_CD" dbType="Varchar"/>
+    </resultMap>
+
+    <resultMap id="esaMenuMap" class="MobileOne.model.bas.EsaMenuVO">
+      <result property="menu_ID" column="menu_ID" dbType="Varchar"/>
+      <result property="menu_NM" column="menu_NM" dbType="Varchar"/>
+      <result property="menu_url" column="menu_url" dbType="Varchar"/>
+      <result property="menu_group_ID" column="menu_group_ID" dbType="Varchar"/>
+      <result property="menu_group_NM" column="menu_group_NM" dbType="Varchar"/>
+    </resultMap>
+
+  </resultMaps>  
+  
+</sqlMap>

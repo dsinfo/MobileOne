@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<sqlMap namespace="BAS" xmlns="http://ibatis.apache.org/mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" >
+
+  <statements>
+    <statement id="FindUser" parameterClass="System.String" resultClass="System.String" >
+      SELECT Name
+      FROM BasUser
+      WHERE Id =  #value#
+    </statement>
+
+    <statement id="FindDepartment" parameterClass="System.Int32" resultClass="System.String" >
+      SELECT Name
+      FROM Department
+      WHERE Id =  #value#
+    </statement>
+    
+    <procedure id="GetEmployees" parameterMap="get-employees-params"  resultMap="get-employee-result">
+       [dbo].[BAS_Employee_SELECT]
+    </procedure>
+
+    
+   <statement id="FindMat" parameterClass="System.String" resultClass="System.String" >
+      SELECT Mat_NM
+        FROM MBasMatMst
+       WHERE Mat_CD =  #value#
+    </statement>
+
+    <statement id="MBasMatMst_FIND" parameterClass="MobileOneTest.vo.bas.MBasMatMstVO" resultMap="mbasmatmst-result" >
+      SELECT Plant_CD, Mat_CD, Mat_NM
+      FROM MBasMatMst
+      WHERE Mat_CD = #Mat_CD#
+    </statement>
+
+    <statement id="MBasMatMst_SELECT" parameterClass="MobileOneTest.vo.bas.MBasMatMstVO" resultMap="mbasmatmst-result" >
+      SELECT Plant_CD, Mat_CD, Mat_NM
+        FROM MBasMatMst
+      WHERE Mat_cd like  #Mat_CD#
+    </statement>
+  
+ </statements>
+
+  
+  <parameterMaps>
+    <parameterMap id="get-employees-params">
+      <parameter property="Id" column="DepartmentId" />
+    </parameterMap>
+  </parameterMaps>
+  
+  
+  <resultMaps>
+    <resultMap id="get-employee-result" class="MobileOneTest.vo.bas.Employee">
+      <result property="Id" column="Id" dbType="Int"/>
+      <result property="Name" column="Name" dbType="Varchar"/>
+      <result property="Age" column="Age" dbType="Varchar"/>
+      <result property="DepartmentId" column="DepartmentId" dbType="Int"/>
+    </resultMap>
+
+    <resultMap id="mbasmatmst-result" class="MobileOneTest.vo.bas.MBasMatMstVO">
+      <result property="Plant_CD" column="Plant_CD" dbType="Varchar"/>
+      <result property="Mat_CD" column="Mat_CD" dbType="Varchar"/>
+      <result property="Mat_NM" column="Mat_NM" dbType="Varchar"/>
+    </resultMap>
+
+  </resultMaps>  
+  
+</sqlMap>

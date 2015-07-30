@@ -1,0 +1,739 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheOne.Web.Services</name>
+    </assembly>
+    <members>
+        <member name="T:TheOne.Web.Services.ProxyHelper">
+            <summary>
+            XML WebServices Proxy에 대하여 다양한 기능을 제공하는 클래스이다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.ProxyHelper.SerializeAuthInfoToString(TheOne.Security.UserInfoContext)">
+            <summary>
+            UserContextInfo 정보를 문자열로 serialize 한다
+            </summary>
+            <param name="ctx">UserInfoContext 객체</param>
+            <returns>Serialized 문자열</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.ProxyHelper.DeserializeAuthInfoFromString(System.String)">
+            <summary>
+            UserContextInfo 정보를 문자열로부터 deserialize 한다
+            </summary>
+            <param name="authInfoString">Serialized 문자열</param>
+            <returns>UserInfoContext 객체.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.ProxyHelper.GetTargetUrl(System.String)">
+            <summary>
+            NeoDEEX 구성 요소파일의 설정에 의해 XML WebServices URL을 자동으로 설정하고 해당 시스템에 해당하는XML WebServices URL을 반환한다.
+            </summary>
+            <param name="url">XML WebSerivces URL</param>
+            <returns>시스템에 해당하는 XML WebServices URL을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.ProxyHelper.GetTargetUrl(System.String,System.String)">
+            <summary>
+             NeoDEEX 구성 요소파일의 설정에 의해 XML WebServices URL을 자동으로 설정하고 해당 시스템에 해당하는XML WebServices URL을 반환한다.
+            </summary>
+            <param name="systemID">시스템명</param>
+            <param name="url">NeoDEEX 구성 요소파일에 설정된 XML WebSerivces URL</param>
+            <returns>시스템에 해당하는 XML WebServices URL을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.ProxyHelper.InitWebRequest(System.Net.WebRequest)">
+            <summary>
+            XML WebServices 호출을 위해 필요한 설정을 <see cref="T:System.Net.WebRequest"/> 객체에 실행한다.
+            </summary>
+            <param name="webRequest"><see cref="T:System.Net.WebRequest"/> 객체</param>
+            <remarks>
+            이 메서드는 <see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol">SoapHttpClientProtocol</see> 클래스의
+            <see cref="M:System.Web.Services.Protocols.SoapHttpClientProtocol.GetWebRequest(System.Uri)"/> 메서드에서 반환된 
+            <see cref="T:System.Net.WebRequest"/> 객체에 대해 호출되어야 한다.
+            전형적인 사용 방법은 XML WebServices의 Proxy 클래스가 GetWebRequest를 재정의하고
+            재정의 한 GetWebRequest 메서드 내에서 InitWebRequest 메서드를 호출한다.
+            </remarks>
+        </member>
+        <member name="T:TheOne.Web.Services.SoapZipExt.ZippableStream">
+            <summary>
+            압축을 수행하는 <see cref="T:System.IO.Stream"/> 클래스이다.<br/>
+            이 클래스는 NeoDEXX 프레임워크 내부에서 사용하는 클래스로서 일반 코드에서는 사용해서는 안된다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.#ctor(System.IO.Stream)">
+            <summary>
+            <see cref="T:TheOne.Web.Services.SoapZipExt.ZippableStream"/>클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="targetStream">압축 결과가 기록될 <see cref="T:System.IO.Stream"/>객체</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.#ctor(System.IO.Stream,System.Int32)">
+            <summary>
+            <see cref="T:TheOne.Web.Services.SoapZipExt.ZippableStream"/>클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="targetStream">압축 결과가 기록될 <see cref="T:System.IO.Stream"/>객체</param>
+            <param name="upperBound">압축을 수행할 메지시의 최대 크기(이 크기를 초과하면 압축 수행)</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Finish">
+            <summary>
+            스트림의 마무리를 수행하고 관련된 스트림을 모두 닫는다. 
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Finish(System.Boolean)">
+            <summary>
+            스트림의 마무리를 수행한다.
+            </summary>
+            <param name="close"><see cref="T:System.IO.Stream"/>객체가 닫혀있는 상태</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Seek(System.Int64,System.IO.SeekOrigin)">
+            <summary>
+            현재 스트림 내의 위치를 설정한다.
+            </summary>
+            <param name="offset">오프셋</param>
+            <param name="origin">시작지점</param>
+            <returns>현재 스트림 내의 새 위치를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.SetLength(System.Int64)">
+            <summary>
+            현재 스트림의 길이를 설정한다.
+            </summary>
+            <param name="value">설정할 스트림 길이(바이트)</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Flush">
+            <summary>
+             스트림에 대해 모든 버퍼를 지우고 버퍼링된 데이터가 내부 장치에 쓰여지도록 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Read(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            현재 스트림에서 바이트의 시퀀스를 읽고 읽은 바이트 수만큼 스트림 내에서 앞으로 이동한다.
+            </summary>
+            <param name="buffer">버퍼</param>
+            <param name="offset">버퍼 오프셋</param>
+            <param name="count">버퍼의 길이</param>
+            <returns>읽은 데이터 길이(바이트)를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.ReadByte">
+            <summary>
+            스트림에서 바이트를 읽고 스트림 내 위치를 한 바이트씩 앞으로 이동하거나 스트림 끝일 경우 -1을 반환한다.
+            </summary>
+            <returns>읽은 바이트 값을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.BeginRead(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)">
+            <summary>
+            비동기 읽기 작업을 시작한다.
+            </summary>
+            <param name="buffer">버퍼</param>
+            <param name="offset">버퍼 오프셋</param>
+            <param name="count">버퍼 길이</param>
+            <param name="callback">콜백</param>
+            <param name="state">콜백 매개변수</param>
+            <returns>비동기 읽기를 나타내는 <see cref="T:System.IAsyncResult"/>를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.EndRead(System.IAsyncResult)">
+            <summary>
+            보류 중인 비동기 읽기가 완료되기를 기다린다.
+            </summary>
+            <param name="asyncResult"><see cref="T:System.IAsyncResult"/> 객체</param>
+            <returns>읽은 바이트 수를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            현재 스트림에 바이트의 시퀀스를 쓰고 쓰여진 바이트 수만큼 이 스트림 내에서 앞으로 이동한다.
+            </summary>
+            <param name="buffer">버퍼</param>
+            <param name="offset">버퍼 오프셋</param>
+            <param name="count">버퍼 크기</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.BeginWrite(System.Byte[],System.Int32,System.Int32,System.AsyncCallback,System.Object)">
+            <summary>
+            현재 스트림이 읽기를 지원하는지 여부를 나타내는 값을 가져온다.
+            </summary>
+            <param name="buffer">버퍼</param>
+            <param name="offset">버퍼 오프셋</param>
+            <param name="count">버퍼 크기</param>
+            <param name="callback">콜백</param>
+            <param name="state">콜백 매개변수</param>
+            <returns>보류 중인 비동기 쓰기를 나타내는 <see cref="T:System.IAsyncResult"/>를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.EndWrite(System.IAsyncResult)">
+            <summary>
+            비동기 쓰기 작업을 끝낸다.
+            </summary>
+            <param name="asyncResult">처리 중인 비동기 I/O 요청에 대한 참조</param>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.ZippableStream.Close">
+            <summary>
+            현재 스트림을 닫고 현재 스트림과 관련된 소켓과 파일 핸들 등의 리소스를 모두 해제한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.ZippableStream.CanRead">
+            <summary>
+            현재 스트림이 읽기를 지원하는지 여부를 나타내는 값을 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.ZippableStream.CanWrite">
+            <summary>
+            현재 스트림이 쓰기를 지원하는지 여부를 나타내는 값을 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.ZippableStream.CanSeek">
+            <summary>
+            현재 스트림이 검색을 지원하는지 여부를 나타내는 값을 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.ZippableStream.Length">
+            <summary>
+            스트림 바이트의 길이를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.ZippableStream.Position">
+            <summary>
+            현재 스트림 내의 위치를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.OperationInfo">
+            <summary>
+            MessageZip Extention 작동 방식에 대한 정보를 나타낸다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.Configuration.OperationInfo.#ctor(TheOne.Web.Services.Configuration.OperationMode,System.Int32,System.Boolean)">
+            <summary>
+            <see cref="T:TheOne.Web.Services.Configuration.OperationInfo"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="mode">압축 모듈 작동 모드</param>
+            <param name="threshold">압축을 수행할 메시지의 최소 크기</param>
+            <param name="filtering">압축 URL 필터링 여부</param>
+        </member>
+        <member name="M:TheOne.Web.Services.Configuration.OperationInfo.ToString">
+            <summary>
+            현재 <see cref="T:TheOne.Web.Services.Configuration.OperationInfo"/> 객체의 정보를 문자열로 반환한다.
+            </summary>
+            <returns>현재 객체의 정보를 문자열로 반환한다.</returns>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.OperationInfo.OperationMode">
+            <summary>
+            압축 수행 작동 모드를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.OperationInfo.CompressThreshold">
+            <summary>
+            압축을 수행할 메시지의 최소 크기를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.OperationInfo.UrlFilterEnabled">
+            <summary>
+            압축 URL 필터링 여부를 가져오거나 설정한다. 
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.OperationMode">
+            <summary>
+            SoapMessage 압축 모듈의 작동 모드 형식을 지정한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.Services.Configuration.OperationMode.Auto">
+            <summary>
+            압축을 수행한다. 서버에서 Auto 모드가 사용되면 클라이언트가 압축 모듈을 사용하고 있는가
+            판단하여 압축 여부를 결정한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.Services.Configuration.OperationMode.Enabled">
+            <summary>
+            압축을 수행한다. 클라이언트에 압축 모듈이 포함되어있는가와 무관하게 압축을 수행한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.Services.Configuration.OperationMode.Disabled">
+            <summary>
+            압축을 수행하지 않는다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.SoapExceptionHelper">
+            <summary>
+            서버에서 발생하는 예외를 XML WebServices 클라이언트에게 정보를 넘겨주기 위한
+            <see cref="T:System.Web.Services.Protocols.SoapException"/> 관련하여 Helper메서드를 제공한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.#cctor">
+            <summary>
+            <see cref="T:TheOne.Web.Services.SoapExceptionHelper"/> 클래스의 새 인스턴스를 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.GetSoapException(System.Exception)">
+            <summary>
+            서버에서 발생하는 예외를 클라이언트에게 넘겨주기 위해 <see cref="T:System.Web.Services.Protocols.SoapException"/>클래스의 새 인스턴스를
+            만들고 <see cref="T:System.Web.Services.Protocols.SoapException"/> 객체를 반환한다.
+            </summary>
+            <param name="ex">서버에서 발생한 예외 객체</param>
+            <returns><see cref="T:System.Web.Services.Protocols.SoapException"/> 인스턴스 객체를 throw한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.GetSoapException(System.Int32,System.Exception)">
+            <summary>
+            서버에서 발생하는 예외를 클라이언트에게 넘겨주기 위해 <see cref="T:System.Web.Services.Protocols.SoapException"/>클래스의 새 인스턴스를
+            만들고 <see cref="T:System.Web.Services.Protocols.SoapException"/> 객체를 반환한다.
+            </summary>
+            <param name="ex">서버상에서 발생한 예외 객체</param>
+            <param name="errorCode">오류 코드</param>
+            <returns><see cref="T:System.Web.Services.Protocols.SoapException"/> 인스턴스 객체를 throw한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.GetSoapException(System.String,System.Exception)">
+            <summary>
+            서버에서 발생하는 예외를 클라이언트에게 넘겨주기 위해 <see cref="T:System.Web.Services.Protocols.SoapException"/>클래스의 새 인스턴스를
+            만들고 <see cref="T:System.Web.Services.Protocols.SoapException"/> 객체를 반환한다.
+            </summary>
+            <param name="message">예외가 발생한 이유를 나타내는 메시지</param>
+            <param name="ex">서버상에서 발생한 예외 객체</param>
+            <returns>throw 할 SoapException 인스턴스 객체</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.GetSoapException(System.String,System.Int32,System.Exception)">
+            <summary>
+            서버에서 발생하는 예외를 클라이언트에게 넘겨주기 위해 <see cref="T:System.Web.Services.Protocols.SoapException"/>클래스의 새 인스턴스를
+            만들고 <see cref="T:System.Web.Services.Protocols.SoapException"/> 객체를 반환한다.
+            </summary>
+            <param name="message">예외가 발생한 이유를 나타내는 메시지</param>
+            <param name="errorCode">오류 코드</param>
+            <param name="ex">서버상에서 발생한 예외 객체</param>
+            <returns>throw 할 SoapException 인스턴스 객체</returns>&gt;
+        </member>
+        <member name="M:TheOne.Web.Services.SoapExceptionHelper.GetException(System.Web.Services.Protocols.SoapException)">
+            <summary>
+            서버로부터 수신한 <see cref="T:System.Web.Services.Protocols.SoapException"/>에서 서버측 예외 정보를 추출하여 <see cref="T:TheOne.TheOneException"/>클래스의 새 인스턴스를
+            만들고 <see cref="T:System.Exception"/> 객체를 반환한다.
+            </summary>
+            <param name="se">서버로부터 수신한  <see cref="T:System.Web.Services.Protocols.SoapException"/> 객체</param>
+            <returns>서버측 <see cref="T:System.Exception"/>객체를 반환한다.</returns>
+            <remarks>
+            GetException 메서드가 반환한 Exception 객체는 서버상에서 발생한 예외들에 대해
+            inner exception을 포함하고 있다. 다만 예외 클래스가 구체적인 클래스가 아닌
+            Exception 클래스로 표시되는 대신 메시지 앞에 예외 클래스의 이름이 명시된다.
+            </remarks>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.CompressionSetting">
+            <summary>
+            웹서비스 압축 정보 클래스를 나타낸다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.Configuration.CompressionSetting.#ctor">
+            <summary>
+            <see cref="T:TheOne.Web.Services.Configuration.CompressionSetting"/>클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.CompressionSetting.UrlFilters">
+            <summary>
+            압축 수행할 URL 필터 목록을 가져오간 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.CompressionSetting.UrlFilterEnabled">
+            <summary>
+            압축 URL 필터링 사용을 결정하는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.CompressionSetting.OperationMode">
+            <summary>
+            전역 압축 수행을 결정하는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.CompressionSetting.ThresholdString">
+            <summary>
+            압축을 수행할 메시지 크기를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.CompressionSetting.ThresholdSize">
+            <summary>
+            압축을 수행할 메시지 크기를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.AddressCollection">
+            <summary>
+            XML WebService 주소의 변경 정보를 저장하기 위한 컬렉션을 관리한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.AddressCollection.DefaultAddress">
+            <summary>
+            기본 주소 이름
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.AddressCollection.AddressList">
+            <summary>
+            아이템 목록을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.AddressCollection.Item(System.String)">
+            <summary>
+            지정된 이름에 해당하는 <see cref="T:TheOne.Web.Services.Configuration.AddressSetting"/> 객체를 가져온다.
+            </summary>
+            <param name="key">아이템의 이름</param>
+            <returns><see cref="T:TheOne.Web.Services.Configuration.AddressSetting"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.AddressCollection.Item(System.Int32)">
+            <summary>
+            지정한 인덱스에 해당하는 <see cref="T:TheOne.Web.Services.Configuration.AddressSetting"/> 객체를 반환한다.
+            </summary>
+            <param name="index">아이템의 인덱스</param>
+            <returns><see cref="T:TheOne.Web.Services.Configuration.AddressSetting"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="T:TheOne.Web.Services.WebServiceBase">
+            <summary>
+            XML Web services에 대한 기본 클래스를 정의한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.WebServiceBase.#cctor">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.WebServiceBase.#ctor">
+            <summary>
+            <see cref="T:TheOne.Web.Services.WebServiceBase"/>클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.WebServiceBase.#ctor(System.Boolean)">
+            <summary>
+            인증 요구 설정을 사용하여 <see cref="T:TheOne.Web.Services.WebServiceBase"/>클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="requireAuthentication">인증 요구 여부</param>
+        </member>
+        <member name="T:TheOne.Web.Services.Client.AssemblyGenerator">
+            <summary>
+            동적 어셈블리를 생성하고 어셈블리에 동적 클래스를 생성한다.
+            </summary>
+            <remarks>
+            프레임워크 내부에서 사용하는 클래스이며, 웹서비스 프록시 클래스를 동적으로 생성하고 저장한다.
+            AssemblyGenerator는 <see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol"/> 클래스의 
+            <see cref="M:System.Web.Services.Protocols.SoapHttpClientProtocol.GetWebRequest(System.Uri)">GetWebRequest</see> 메서드와
+            <see cref="M:System.Web.Services.Protocols.HttpWebClientProtocol.GetWebResponse(System.Net.WebRequest)">GetWebResponse</see> 메서드를 
+            오버라이드해서 재정의하는 클래스를 생성한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.#ctor(System.String)">
+            <summary>
+            주어진 이름의 동적 어셈블리를 가지는 <see cref="T:TheOne.Web.Services.Client.AssemblyGenerator"/> 클래스의 인스턴스를 초기화한다.
+            </summary>
+            <param name="name">동적 어셈블리 이름.</param>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.Save">
+            <summary>
+            동적 생성된 어셈블리를 저장한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.GetDynamicType(System.Type)">
+            <summary>
+            동적 생성된 어셈블리에서 입력된 타입을 가져온다. 
+            어셈블리내에 타입이 없으면 null을 리턴한다.
+            </summary>
+            <param name="serviceType">찾으려는 타입.</param>
+            <returns>어셈블리에 존재하는 타입. 없으면 null 값.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.CreateType(System.Type)">
+            <summary>
+            XXXServiceProxy 클래스를 생성한다.
+            </summary>
+            <example>
+            <code>
+            public class ServiceProxy : serviceType
+            {
+            }
+            </code>
+            </example>
+            <param name="serviceType"><see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol"/> 객체.</param>
+            <returns>serviceType에서 파생된 동적 클래스 타입.</returns>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.AddConstructor(System.Reflection.Emit.TypeBuilder@,System.Type)">
+            <summary>
+            constructor를 생성한다.
+            </summary>
+            <example>
+            <code>
+            	public [ServiceProxy]()
+            	{
+            		base.Url = ProxyHelper.GetTargetUrl(base.Url);
+            	}
+            </code>
+            </example>
+            <param name="tb">TypeBuilder 객체.</param>
+            <param name="serviceType">parent 객체.</param>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.AddGetWebRequestMethod(System.Reflection.Emit.TypeBuilder@,System.Type)">
+            <summary>
+            GetWebRequest 메서드를 생성한다.
+            </summary>
+            <example>
+            <code>
+            	protected override System.Net.WebRequest GetWebRequest(Uri uri)
+            	{
+            		HttpWebRequest req = (HttpWebRequest)base.GetWebRequest(uri);
+            		ProxyHelper.InitWebRequest(req);
+            		req.CookieContainer = new CookieContainer();
+            		req.CookieContainer.Add(uri, GlobalContainer.Cookies);
+            		return req;
+            	} 
+            </code>
+            </example>
+            <param name="tb">TypeBuilder 객체</param>
+            <param name="serviceType">parent 객체</param>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.AssemblyGenerator.AddGetWebResponseMethod(System.Reflection.Emit.TypeBuilder@,System.Type)">
+            <summary>
+            GetWebResponse 메서드를 생성한다.
+            </summary>
+            <example>
+            <code>
+            		protected override System.Net.WebResponse GetWebResponse(System.Net.WebRequest request)
+            		{
+            			HttpWebResponse res = (HttpWebResponse)base.GetWebResponse (request);
+            			Cookie cookie = res.Cookies["ASP.NET_SessionId"];
+            			if (cookie != null)
+            				GlobalContainer.cookies.Add(cookie);
+            			return res;
+            		}
+            </code>
+            </example>
+            <param name="tb">TypeBuilder 객체.</param>
+            <param name="serviceType">parent 객체.</param>
+        </member>
+        <member name="T:TheOne.Web.Services.SoapZipExt.MessageZip">
+            <summary>
+            웹 서비스 XML 메시지를 압축하는 SOAP Extension 클래스
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.WebServiceSectionFactory">
+            <summary>
+            웹 서비스 설정 정보를 관리하는 Factory 클래스이다.
+            </summary>
+            <example>
+            	<code lang="XML" title="[New Example]" description="Configuration의 webServiceSection 설정 예.">
+            &lt;!-- WebService 에 대한 설정 --&gt;
+                &lt;webServiceSection&gt;
+                    &lt;addresses defaultAddress="PMS"&gt;
+                        &lt;add name="PMS" url="http://pms.xxx.com/services/" skipSegments="2"/&gt;
+                        &lt;add name="TMP" url="http://tmp.xxx.com/services/"/&gt;
+                    &lt;/addresses&gt;
+                    &lt;compression urlFilterEnabled="true" operationMode="Auto" thresholdSize="64KB"&gt;
+                        &lt;urlFilters&gt;
+                            &lt;add prefix="http://pms.xxx.com/services/sub1/" /&gt;
+                            &lt;add prefix="http://tmp.xxx.com/System" /&gt;
+                        &lt;/urlFilters&gt;
+                    &lt;/compression&gt;
+                &lt;/webServiceSection&gt;
+            </code>
+            </example>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.UrlFilterSetting">
+            <summary>
+            압축 수행할 <see cref="!:UrlFilter"/> 정보 클래스를 나타낸다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.SoapZipExt.MessageZipAttribute">
+            <summary>
+            웹 서비스의 SOAP XML 메시지를 압축하는 SoapExtension 사용을 위한 특성(attribute)을 나타낸다.
+            </summary>
+            <remarks>
+            웹 메서드 혹은 웹 서비스 프록시 메서드에 이 특성을 명기함으로써 웹 서비스의 XML 메시지를
+            압축할 수 있다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.#ctor">
+            <summary>
+            <see cref="T:TheOne.Web.Services.SoapZipExt.MessageZipAttribute"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.#ctor(TheOne.Web.Services.Configuration.OperationMode)">
+            <summary>
+            SoapMessage 압축 모듈의 형식을 사용하여 <see cref="T:TheOne.Web.Services.SoapZipExt.MessageZipAttribute"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.#ctor(TheOne.Web.Services.Configuration.OperationMode,System.Int32)">
+            <summary>
+            SoapMessage 압축 모듈의 형식과 압축 메세지의 크기를 사용하여 <see cref="T:TheOne.Web.Services.SoapZipExt.MessageZipAttribute"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.ExtensionType">
+            <summary>
+            이 특성에 의해 사용될 SoapExtension 타입을 기져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.Priority">
+            <summary>
+            SoapExtension 의 우선 순위를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.OperationMode">
+            <summary>
+            압축을 수행할지 결정하는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.SoapZipExt.MessageZipAttribute.CompressThreshold">
+            <summary>
+            압축을 수행할 XML 메시지의 크기를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.SoapZipExt.ChangeableStream">
+            <summary>
+            내부 스트림 교채가 가능한 래퍼 스트림
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Client.ServiceProxyFactory">
+            <summary>
+            동적으로  XML WebServices 클래스를 만드는 Factory 클래스이다.
+            </summary>
+            <remarks>
+            일반적으로 웹서비스를 만드로 웹참조를 추가한 다음 클래스의 객체를 만들어 사용한다.<br/>
+            웹참조에 의해 만들어진 클래스에 추가적인 기능을 부여할 때 참조에 의해 만들어진 프록시 클래스를
+            상속받아서 필요한 기능을 재정의 하면 된다.<br/>
+            하지만 많은 웹서비스를 사용하는 애플리케이션에서 뭽서비스 클래스마다 이러한 추가 클래스를 정의하는 
+            일이 쉽지 않다. 
+            <see cref="T:TheOne.Web.Services.Client.AssemblyGenerator"/> 클래스는 참조된 웹서비스 클래스 타입에서 상속된 추가 기능을 가지는 클래스를 
+            동적으로 만들어서 반환한다.
+            </remarks>
+            <example>
+            <code>
+            private void btnGetOrders_Click(object sender, System.EventArgs e)
+            {
+            	TestService service = (TestService)ServiceProxyFactory.CreateService( typeof(TestService) );
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.Web.Services.Client.ServiceProxyFactory.CreateService(System.Type)">
+            <summary>
+            지정된 타입에서 파생된 클래스를 동적으로 인스턴스를 만든다.
+            </summary>
+            <param name="parentType"><see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol"/>에서 파생된 타입.</param>
+            <returns>동적 클래스 객체를 반환한다.</returns>
+            <remarks>
+            지정된 타입이 <see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol"/>에서 파생된 클래스가 아니면 예외를 throw 하고 
+            <see cref="T:System.Web.Services.Protocols.SoapHttpClientProtocol"/> 타입은 웹참조를 통해서 만들어진 프록시 클래스의 기본 클래스를 나타낸다.
+            </remarks>
+            <example>
+            <code>
+            private void btnGetOrders_Click(object sender, System.EventArgs e)
+            {
+            	TestService service = (TestService)ServiceProxyFactory.CreateService( typeof(TestService) );
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:TheOne.Web.Services.Client.GlobalContainer">
+            <summary>
+            Cookie 컬렉션을 멤버로 가지는 클래스를 나타낸다.
+            </summary>
+            <remarks>
+            웹 서비스 호출 혹은 직접 <see cref="T:System.Net.HttpWebRequest"/> 와 <see cref="T:System.Net.HttpWebResponse"/> 클래스들을
+            이용하여 HTTP 액세스를 수행할 때 전역적으로 사용할 수 있는 쿠키 컨테이너이다.
+            </remarks>
+        </member>
+        <member name="F:TheOne.Web.Services.Client.GlobalContainer.cookies">
+            <summary>
+            쿠키 컬렉션 필드를 정적 인스턴스로 정의한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Client.GlobalContainer.Cookies">
+            <summary>
+            웹 서비스에서 사용할 전역 쿠키 컨테이너 컬렉션을 가져온다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Configuration.WebServiceSection">
+            <summary>
+            웹 서비스 섹션(&lt;WebServiceSection&gt;) 노드의 각 특성을 클래스의 속성으로 표시하며
+            프로그래밍 방식으로 액세스할 수 있도록 한다.<br/> 
+            NeoDEEX 프레임워크 인프라를 지원하며 코드에서는 직접 사용할 수 없다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.WebServiceSection.Addresses">
+            <summary>
+            XML WebServices의 주소 정보를 가져오거나 설정한다.
+            </summary>  
+        </member>
+        <member name="P:TheOne.Web.Services.Configuration.WebServiceSection.Compression">
+            <summary>
+            전역 압축 수행을 결정하는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Services.Resources.Default">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.AddressCollection_this_1">
+            <summary>
+              &lt;{0}&gt;의 &lt;addresses&gt;에서 \&quot;{1}\&quot;라는 설정을 찾을 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ChangeableStream_ChangeStream_1">
+            <summary>
+              Cannot change stream...과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.CompressionSetting_ThresholdSize_1">
+            <summary>
+              메시지 압축 설정에서 Threshold 값이 잘못되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.CompressionSetting_ThresholdSize_2">
+            <summary>
+              메시지 압축 설정에서 Threshold 값이 0보다 작습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.MessageZip_FillString_1">
+            <summary>
+              Null reference of System.String.FillStringChecked() method.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ProxyHelper_InitWebRequest_1">
+            <summary>
+              HttpWebRequest 객체가 필요합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ServiceProxyFactory_CreateService_1">
+            <summary>
+              {0} 타입이 System.Web.Services.Protocols.SoapHttpClientProtocol에서 파생되지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.SoapExceptionHelper_GetException_1">
+            <summary>
+              서버 호출 오류과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.WebServiceBase_WebServiceBase_1">
+            <summary>
+              인증되지 않은 사용자 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_BeginRead_1">
+            <summary>
+              Zippable stream does not support read operation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_BeginWrite_1">
+            <summary>
+              ZippableStream does not support async opertation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_EndRead_1">
+            <summary>
+              Zippable stream does not support read operation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_EndWrite_1">
+            <summary>
+              ZippableStream does not support async opertation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_Read_1">
+            <summary>
+              Zippable stream does not support read operation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Services.Resources.Default.ZippableStream_ReadByte_1">
+            <summary>
+              Zippable stream does not support read operation과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+    </members>
+</doc>

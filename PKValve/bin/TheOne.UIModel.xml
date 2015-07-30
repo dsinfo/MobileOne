@@ -1,0 +1,977 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheOne.UIModel</name>
+    </assembly>
+    <members>
+        <member name="T:TheOne.UIModel.MenuItemInfoCollection">
+            <summary>
+            메뉴 아이템 정보에 대한 컬렉션을 제공한다.
+            </summary>
+            <remarks>
+            <see cref="T:TheOne.UIModel.MenuManager"/> 클래스 및 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 클래스는 
+            최상위 메뉴 아이템들이나 자식 메뉴 아이템들에 대한 컬렉션을 유지한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.#ctor">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfoCollection"/> 클래스의 새 인스턴스를 초기화 한다.  
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.#ctor(System.Int32)">
+            <summary>
+            초기용량을 가지는 <see cref="T:TheOne.UIModel.MenuItemInfoCollection"/> 클래스의 새 인스턴스를 초기화 한다. 
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Add(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            컬렉션에 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 끝부분에 추가 한다.
+            </summary>
+            <param name="menuInfo"><see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Insert(System.Int32,TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            컬렉션에 지정된 인덱스에 아이템을 추가한다.
+            </summary>
+            <param name="index">삽입할 인덱스</param>
+            <param name="menuInfo">삽입할 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Remove(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            컬렉션에서 맨 처음 발견되는 <see cref="T:TheOne.UIModel.MenuItemInfo"/>를 제거한다.
+            </summary>
+            <param name="menuInfo">제거할 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Remove(System.String)">
+            <summary>
+            컬렉션에서 지정한 Menu ID에 해당하는 아이템을 제거한다.
+            </summary>
+            <param name="id">제거할 아이템의 MenuID</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Clear">
+            <summary>
+            컬렉션에서 모든 아이템을 제거한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.Find(System.String)">
+            <summary>
+            지정된 Menu ID를 가진 아이템을 컬렉션에서 검색한다.
+            </summary>
+            <param name="id">검색할 Menu ID</param>
+            <returns>처음으로 검색한 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 반환한다. 검색된 결과가 없다면 <b>null</b>을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.IndexOf(System.String)">
+            <summary>
+            지정된 MenuID를 사용하여 컬렉션에서 객체를 검색하고 처음으로 검색한 인덱스를 반환한다.
+            </summary>
+            <param name="id">검색할 MenuID</param>
+            <returns>처음으로 검색한 객체의 인덱스를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfoCollection.IndexOf(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            지정된 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 사용하여 컬렉션에서 객체를 검색하고 처음으로 검색한 인덱스를 반환한다.
+            </summary>
+            <param name="menuInfo"><see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+            <returns>처음으로 검색한 객체의 인덱스를 반환한다.</returns>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfoCollection.Item(System.Int32)">
+            <summary>
+            지정한 인덱스에 해당하는 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfoCollection.Item(System.String)">
+            <summary>
+            지정한 Menu ID에 해당하는 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfoCollection.Count">
+            <summary>
+            컬렉션에 포함된 실제 아이템의 수를 가져온다.
+            </summary>
+        </member>
+        <member name="T:TheOne.UIModel.MenuManager">
+            <summary>
+            메뉴 XML로 변환을 하고 메뉴 데이터 구조를 제공한다.
+            </summary>
+            <remarks>
+            MenuManager 클래스는 어플리케이션의 메뉴에 대해 계층형 메뉴 구조를 제공한다.<br/>
+            메뉴 구조 및 메뉴 데이터는 <see href="LoadMenu">LoadMenu</see> 메서드를 호출하여 메뉴 XML로 부터 구성되거나
+            <see href="AddMenuItem">AddMenuItem</see> 메서드를 호출하여 프로그램적으로 구성할 수도 있다.
+            메뉴 UI 는 MenuManager를 통해 계층형 메뉴를 표현할 수 있으며 메뉴에 대한 다양한 정보를 얻을 수 있다.
+            <para>메뉴 구조는 계층 구조를 갖는 메뉴 아이템들의 집합으로 표현되며 메뉴 아이템은
+            <see href="MenuItemInfo">MenuItemInfo</see> 클래스 혹은 그 파생 클래스로써 표현된다.
+            MenuItemInfo 클래스는 메뉴에 대한 기본적인 정보를 포함하기 때문에 많은 어플리케이션에서
+            그대로 사용할 수 있는 일반적인 클래스이다. 하지만 어플리케이션에서 추가적인 정보를 메뉴 아이템에
+            기록해야 한다면 이 클래스의 파생 클래스를 정의하고 MenuManager의 생성자에 메뉴 아이템의 타입을
+            제공함으로써 메뉴 프레임워크를 확장할 수 있다.</para>
+            <para>MenuManager가 메뉴 구조를 구성하는 기본적인 방법은 메뉴 XML로 부터 메뉴 아이템들을 읽는 것이다.
+            만약 어플리케이션의 메뉴 데이터가 XML이 아닌 데이터베이스에 존재한다면 데이터베이스에서 읽은
+            메뉴 데이터를 이용하여 메뉴 아이템 객체(MenuItemInfo 클래스 혹은 그 파생 클래스의 인스턴스)를
+            수동으로 구성하고 <see href="AddMenuItem">AddMenuItem</see> 메서드를 호출하여 MenuManager가
+            관리하는 메뉴 구조에 추가할 수도 있다.</para>
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.#ctor">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuManager"/> 클래스의 새 인스턴스를 초기화 한다. 기본적으로  <see cref="T:TheOne.UIModel.MenuManager"/>는 아무런 메뉴 정보도
+            가지고 있지 않다.
+            </summary>
+            <remarks>
+            메뉴 아이템 타입으로 <see cref="T:TheOne.UIModel.MenuItemInfo"/>를 사용하고 다국어 메뉴를 사용하지 않는 <see cref="T:TheOne.UIModel.MenuManager"/>를 초기화 한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.#ctor(System.Type)">
+            <summary>
+            지정된 <see cref="T:System.Type"/>으로 <see cref="T:TheOne.UIModel.MenuManager"/> 클래스의 새 인스턴스를 초기화 한다. 기본적으로  <see cref="T:TheOne.UIModel.MenuManager"/>는 아무런 메뉴 정보도
+            가지고 있지 않다.
+            </summary>
+            <param name="menuItemType">메뉴 아이템 타입</param>
+            <remarks>
+            메뉴 아이템 타입으로 <see cref="T:TheOne.UIModel.MenuItemInfo"/>를 사용하고 다국어 메뉴를 사용하지 않는 <see cref="T:TheOne.UIModel.MenuManager"/>를 초기화 한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.#ctor(System.Type,System.String)">
+            <summary>
+            지정된 <see cref="T:System.Type"/>과 언어타입으로 <see cref="T:TheOne.UIModel.MenuManager"/> 클래스의 새 인스턴스를 초기화 한다. 기본적으로  <see cref="T:TheOne.UIModel.MenuManager"/>는 아무런 메뉴 정보도
+            가지고 있지 않다.
+            </summary>
+            <param name="menuItemType">메뉴 아이템 타입</param>
+            <param name="language">메뉴 매니저가 메뉴 XML을 읽을 때 사용할 언어</param>
+            <remarks>
+            <para>메뉴 아이템 타입은 MenuItemInfo 타입이나 이 클래스에서 파생된 클래스를 사용해야만 한다.
+            파생 클래스의 경우 <see href="TheOne.UIModel.MenuItemInfo.CreateInstance">CreateInstance</see> 메서드를
+            반드시 재정의하여 MenuManager가 메뉴 구조를 구성할 수 있도록 해야만 한다. 또한 메뉴 아이템에 
+            추가적인 정보를 담고자 한다면 MenuItemBase의 몇몇 메서드를 재정의하여야 한다. 상세한 내용은
+            <see href="TheOne.UIModel.MenuItemInfo">MenuItemInfo</see> 클래스를 참고 한다.</para>
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.InitializeMenuTree">
+            <summary>
+            메뉴의 트리 구조를 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.DoAddMenuItem(TheOne.UIModel.MenuItemInfo,TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            메뉴 아이템 정보 객체를 메뉴 구조에 추가한다.
+            </summary>
+            <param name="parent">추가할 메뉴 아이템의 부모를 나타내는 MenuItemInfo 객체.</param>
+            <param name="menuInfo">추가할 메뉴 아이템을 나타내는 MenuItemInfo 객체.</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.ParseMenuXmlStream(System.IO.Stream)">
+            <summary>
+            메뉴 XML 스트림으로부터 메뉴를 변환한다.
+            </summary>
+            <param name="stream">메뉴 XML을 지시하는 <see cref="T:System.IO.Stream"/>객체</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.GetMenuUri(System.String)">
+            <summary>
+            메뉴 XML의 현재 문화권(<see cref="P:System.Globalization.CultureInfo.CurrentUICulture"/>)에 대한 <see cref="T:System.Uri"/>를 반환한다.
+            </summary>
+            <param name="urlOrFilePath">메뉴 XML 파일에 대한 절대 URL(또는 상대 URL) 혹은 파일의 절대 경로(또는 상대 경로)</param>
+            <returns>메뉴 XML에 대한 <see cref="T:System.Uri"/>객체를 반환한다.</returns>
+            <remarks>
+            주어진 상대/절대 URL 혹은 상대/절대 파일 경로와 현재 쓰레드의 UI <see cref="T:System.Globalization.CultureInfo"/>의 언어를
+            고려하여 메뉴 XML에 대한 <see cref="T:System.Uri"/>를 반환한다. 예를 들어 매개변수로 C:\App\Menu.xml 이
+            주어지고 현재 쓰레드의 UI CultureInfo의 언어가 "en"로 주어졌다면 이 메서드는 file://C:\App\Menu.en.xml을 반환한다.
+            만약 매개변수로 http://server/getmenu.asxp 가 주어지고 현재 쓰레드의 UI CultureInfo의 언어가 "ko" 이면
+            이 메서드는 http://server/getmenu.aspx?language=ko를 반환한다.
+            <para>상대 URL 혹은 상대 파일 경로가 주어지면 어플리케이션 도메인의 기본 디렉터리를
+            기준으로 절대 경로로 변환하는 작업도 수행한다.</para>
+            <para>현재 쓰레드의 UI CultureInfo가 언어 중립이면 다국어가 고려되지 않은 원본 파일명이 사용된다. </para>
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.GetMenuUri(System.String,System.Globalization.CultureInfo)">
+            <summary>
+            메뉴 XML에 대한 언어별 <see cref="T:System.Uri"/>를 반환한다.
+            </summary>
+            <param name="urlOrFilePath">메뉴 XML 파일에 대한 절대 URL(또는 상대 URL) 혹은 파일의 절대 경로(또는 상대 경로)</param>
+            <param name="culture">언어를 나타내는  <see cref="T:System.Globalization.CultureInfo"/> 객체</param>
+            <returns>메뉴 XML에 대한 <see cref="T:System.Uri"/>객체를 반환한다.</returns>
+            <remarks>
+            <para>주어진 상대/절대 URL 혹은 상대/절대 파일 경로와 주어진 <see cref="T:System.Globalization.CultureInfo"/>의 언어를
+            고려하여 메뉴 XML에 대한  <see cref="T:System.Uri"/>를 반환한다. 예를 들어 매개변수로 C:\App\Menu.xml 이
+            주어지고 CultureInfo의 언어가 "en"으로 주어졌다면 이 메서드는 file://C:\App\Menu.en.xml을 반환한다.
+            만약 매개변수로 http://server/getmenu.asxp 가 주어지고 CultureInfo의 언어가 "ko"로 주어졌다면
+            이 메서드는 http://server/getmenu.aspx?language=ko를 반환한다.</para>
+            <para>상대 URL 혹은 상대 파일 경로가 주어지면 어플리케이션 도메인의 기본 디렉터리를
+            기준으로 절대 경로로 변환하는 작업을 수행한다.</para>
+            <para><see cref="T:System.Globalization.CultureInfo"/>가 <b>null</b> 로 주어지면 다국어가 고려되지 않은 원본 파일명이 사용된다.</para>
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.GetMenuUri(System.String,System.String)">
+            <summary>
+            메뉴 XML에 대한 언어별 <see cref="T:System.Uri"/>를 반환한다.
+            </summary>
+            <param name="urlOrFilePath">메뉴 XML 파일에 대한 절대 URL(또는 상대 URL) 혹은 파일의 절대 경로(또는 상대 경로)</param>
+            <param name="language">2자리 언어코드("ko", "en"...)</param>
+            <returns>메뉴 XML에 대한 <see cref="T:System.Uri"/>객체를 반환한다.</returns>
+            <remarks>
+            <para>주어진 상대/절대 URL 혹은 상대/절대 파일 경로와 주어진 언어 이름을
+            고려하여 메뉴 XML에 대한 <see cref="T:System.Uri"/>를 반환한다. 예를 들어 매개변수로 C:\App\Menu.xml 이
+            주어지고 언어가 "en"로 주어졌다면 이 메서드는 file://C:\App\Menu.en.xml을 반환한다.
+            만약 매개변수로 http://server/getmenu.asxp 가 주어지고 언어가 "ko"로 주어졌다면
+            이 메서드는 http://server/getmenu.aspx?language=ko를 반환한다.</para>
+            <para>이 메서드는 상대 URL 혹은 상대 파일 경로가 주어지면 어플리케이션 도메인의 기본 디렉터리를
+            기준으로 절대 경로로 변환하는 작업 역시 수행한다.</para>
+            <para>언어가 명시되지 않으면 다국어가 고려되지 않은 원본 파일명이 사용된다.</para>
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.LoadMenu(System.String)">
+            <summary>
+            지정된 URL 로부터 다국어 설정을 적용하여 메뉴 XML을 로드하고 메뉴 트리 구조를 만든다.
+            </summary>
+            <param name="urlOrFilePath">메뉴 XML 파일에 대한 절대 URL(또는 상대 URL) 혹은 파일의 절대 경로(또는 상대 경로)</param>
+            <remarks>
+            이 메서드는 <see href="Language">Language</see> 속성의 값을 참고로 하여 로드할 메뉴 XML의
+            <see cref="T:System.Uri"/>를 결정한다. MenuManager에 설정된 Language 속성이 아닌 다른 언어를 이용하여 메뉴 XML을
+            로드하고자 한다면 먼저 GetMenuUri 메서드를 호출하여 다국어화된 메뉴 XML의 Uri를 구하고
+            이 Uri를 매개변수로 취하는 LoadMenu 메서드를 호출해야 한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.LoadMenu(System.Uri)">
+            <summary>
+            주어진 절대 <see cref="T:System.Uri"/>로부터 메뉴 XML을 로드한다.
+            </summary>
+            <param name="uri">메뉴 XML에 대한 <see cref="T:System.Uri"/>객체</param>
+            <remarks>
+            이 메서드는 상대 경로의 <see cref="T:System.Uri"/>를 지원하지 않는다. 상대 경로의 <see cref="T:System.Uri"/>가 주어지면
+            <see cref="T:System.NotSupportedException"/>이 발생한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.LoadMenuFromUrl(System.String)">
+            <summary>
+            주어진 URL 으로 부터 메뉴 XML을 로드하고 메뉴 트리 구조를 만든다.
+            </summary>
+            <param name="URL">메뉴 XML 파일에 대한 절대/상대 URL 혹은 파일 절대/상대 경로.</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.LoadMenuFromFile(System.String)">
+            <summary>
+            주어진 XML 파일로 부터 메뉴를 로드 한다.
+            </summary>
+            <param name="filename">메뉴 XML 파일명</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.LoadMenuItems``1(System.Collections.Generic.Dictionary{``0,System.String})">
+            <summary>
+            메뉴 XML 이 아닌 방법으로 구성된 메뉴 아이템 정보 객체의 컬렉션을 메뉴 구조로써 로드한다.
+            </summary>
+            <remarks>
+            어플리케이션에 따라 메뉴 XML을 사용하지 않고 데이터베이스로 부터 메뉴 정보를 로드하거나
+            프로그램적인 방법으로 메뉴 정보를 구성할 수 도 있다. 이 경우, 어플리케이션은 데이터베이스
+            혹은 기타 다른 곳에 기록된 메뉴 정보를 이용하여 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체의 <b>Dictionary</b>를 구성한다.
+            이 <b>Dictionary</b>는 주어진 메뉴 아이템의 부모 ID가 무엇인가를 알려주기 때문에 MenuManager가
+            Tree를 구성할 수 있게 해준다.
+            </remarks>
+            <example>
+            	<code lang="CS" description="데이터 셋에서 메뉴 아이템 정보를 로드하여 메뉴 구조를 구성하는 예제이다.">
+            Dictionary&lt;MenuItemInfo, string&gt; menuInfos = new Dictionary&lt;MenuItemInfo, string&gt;();
+            DataSet ds = GetMenuItemFromDatabase();
+            foreach(DataRow row in ds.Tables[0].Rows) {
+                MenuItemInfo menuInfo = new MenuItemInfo();
+                menuInfo.ID = row["ID"].Value;
+                menuInfo.Title = row["Title"].Value;
+                menuInfo.MenuAction = MenuAction.OpenUI;
+                // ... fill menu item properties
+                menuInfos.Add(menuInfo, row["ParentID"].Value);
+            }
+            MenuManager manager = new MenuManager();
+            manager.LoadMenuItems(menuInfos);
+            </code>
+            </example>
+            <param name="items">메뉴 아이템 객체에 대한 컬렉션</param>
+            <typeparam name="T">MenuItemInfo 에서 파생된 메뉴 아이템 타입.</typeparam>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.WriteMenuXml(System.IO.Stream)">
+            <summary>
+            현재 로드된 메뉴 구조를 XML 스트림에 저장한다.
+            </summary>
+            <param name="stream">저장할 <see cref="T:System.IO.Stream"/>객체</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.SaveMenuToFile(System.String)">
+            <summary>
+            현재 로드된 메뉴 구조를 XML 파일에 기록한다.
+            </summary>
+            <param name="filename">저장할 XML 파일이름</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.CreateMenuItemInfo">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 만들고 반환한다.
+            </summary>
+            <returns><see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 반환한다.</returns>
+            <remarks>
+            메뉴를 동적으로 구성하고자 할 때 메뉴 아이템을 만들어야 할 필요가 있다. 이 때 이 메서드를
+            호출하여 메뉴 아이템을 만들 수 있다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.AddMenuItem(System.String,TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 메뉴 구조에 추가한다.
+            </summary>
+            <param name="parentID">추가할 메뉴 아이템의 부모 ID</param>
+            <param name="menuInfo">추가할 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체</param>
+            <remarks>
+            이 메서드는 메뉴 정보 객체의 자식 메뉴 정보들을 메뉴 구조에 추가하지 않는다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.AddMenuItem(TheOne.UIModel.MenuItemInfo,TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 메뉴 구조에 추가한다.
+            </summary>
+            <param name="parent">추가할 메뉴 아이템의 부모 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체</param>
+            <param name="menuInfo">추가할 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체</param>
+            <remarks>
+            이 메서드는 메뉴 정보 객체의 자식 메뉴 정보들을 메뉴 구조에 추가하지 않는다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.AddMenuItemRecursive(System.String,TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            메뉴 아이템 및 그 자손 메뉴 아이템들을 메뉴 구조에 추가한다.
+            </summary>
+            <param name="parentID">추가할 메뉴 아이템의 부모 메뉴 ID</param>
+            <param name="menuInfo">추가할 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체</param>
+            <remarks>
+            이 메서드는 추가하고자 하는 메뉴 정보 객체가 이미 자식 메뉴 정보들을 포함하고 있다면
+            이들을 포함하여 그 자손들까지 모두 메뉴 구조에 추가한다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.RemoveMenuItem(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            메뉴 계층 구조에서 메뉴 아이템 및 그 자손 메뉴 아이템들을 모두 제거한다.
+            </summary>
+            <param name="menuInfo">제거할 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체</param>
+            <remarks>
+            메뉴 아이템 자체 뿐만 아니라 그 자식과 자손들도 모두 메뉴 계층 구조에서 제거된다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.MoveMenuItem(TheOne.UIModel.MenuItemInfo,TheOne.UIModel.MenuItemInfo,TheOne.UIModel.MenuItemMoveOptions)">
+            <summary>
+            메뉴 아이템을 현재 위치에서 목적지 위치로 이동한다.
+            </summary>
+            <param name="menuInfo">이동할 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+            <param name="targetInfo">이동할 목적지  <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+            <param name="option">목적지 메뉴 아이템으로부터의 상대 위치를 나타내는 <see cref="T:TheOne.UIModel.MenuItemMoveOptions">MenuItemMoveOptions</see> 형식</param>
+            <remarks>
+            메뉴 아이템의 위치를 이동하는데 사용된다. 목적지를 나타내는 targetInfo 매개변수는
+            이동할 목적지 메뉴 아이템을 지정하는데 사용된다. 이 매개변수는 <b>null</b> 일 수 있으며 <b>null</b> 인 경우
+            <see cref="T:TheOne.UIModel.MenuItemMoveOptions">MenuItemMoveOptions</see> 형식의 값에 따라 목적지의 의미가 달라진다.<br/>
+            option 매개변수가 ChildFirst, ChildLast 로 주어지고 targetInfo 매개변수가 <b>null</b>이면 메뉴의 최상위 수준의 처음
+            혹은 마지막으로 이동한다. option 매개변수가 SiblingXXX 이고 이 매개변수가 <b>null</b>이면 동일 수준 상에서 맨 처음
+            혹은 맨 마지막 혹은 이전/다음 위치로 이동하게 된다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.EnableMenuItem(System.String)">
+            <summary>
+            지정된 Menu ID와 그 상위 메뉴들을 모두 <b>enable</b> 한다.
+            </summary>
+            <param name="id">Enable할 메뉴 ID.</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.EnableMenuItem(System.String,System.Boolean)">
+            <summary>
+            지정된 메뉴를 활성화를 하거나 비활성화를 한다.
+            </summary>
+            <param name="id">활성화 또는 비활성화 할 대상이 되는 Menu ID</param>
+            <param name="enable">메뉴를 활성화하려면 <b>true</b>이고, 그렇지 않으면 <b>false</b>이다.</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.GetMenuItem(System.String)">
+            <summary>
+             지정된 Menu ID를 가진 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 반환한다.
+            </summary>
+            <param name="id">Menu ID</param>
+            <returns><see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 반환하며, Menu ID가 존재하지 않는 경우 <b>null</b>을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.GetTopLevelMenuItemByMenuID(System.String)">
+            <summary>
+            지정된 Menu ID를 자식 혹은 자손으로 포함하는 최상위 <see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 반환한다.
+            </summary>
+            <param name="id">Menu ID</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuManager.CheckIfExistsRecursive(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            지정된 메뉴 아이템과 그 자식(자손)이 현재 메뉴 구조 내에 포함되어 있는지 확인한다.
+            </summary>
+            <param name="menuInfo">확인할 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체</param>
+            <returns>주어진 메뉴 아이템이 내에 포함되어 있는지 여부</returns>
+            <remarks>
+            <para>이 메서드는 주어진 메뉴 아이템의 Menu ID가 MenuManager가 관리하는 메뉴 구조에 포함되어 있는가
+            확인한다. 또한 자식 및 자손들의 Menu ID를 이용하여 동일한 검사를 반복한다. 자식 및 자손들 역시
+            메뉴 구조에 포함되어 있다면 <b>true</b>를 반환하고, 자기 자신 및 자식/자손들이 모두 메뉴 구조에 포함되지
+            않은 경우에만 <b>false</b>를 반환한다.</para>
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.SystemMenuTitle">
+            <summary>
+            시스템 메뉴의 제목을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.SystemMenuImage">
+            <summary>
+            시스템 메뉴 이미지 이름을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.TopLevelItems">
+            <summary>
+            최상위 메뉴 아이템들의 컬렉션을 가져온다.
+            </summary>
+            <value>최상위 메뉴 아이템들을 나타내는 <see cref="T:TheOne.UIModel.MenuItemInfoCollection"/> 객체</value>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.Items">
+            <summary>
+            메뉴 아이템들을 포함하고 있는 <b>Dictionary</b> 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.MenuEnableDefault">
+            <summary>
+            메뉴 아이템들의 초기 활성화에 대한 값을 가져오거나 설정한다.
+            </summary>
+            <value>메뉴 아이템들의 초기 활성화 값을 지정하고 기본값은 <b>false</b>이다.</value>
+            <remarks>
+            메뉴 매니저(<see href="TheOne.UIModel.MenuManager">MenuManager</see>)에 의해 메뉴가 로드되면
+            메뉴는 사용자의 권한에 따라 <b>enable</b> 또는 <b>disable</b>이 된다. 최초로 메뉴 매니저가 메뉴 데이터(XML 혹은 DB 등)를 읽을 때 각
+            메뉴 아이템의 <b>Enable</b> 속성을 초기화 할 때 사용하는 값이 이 MenuEnableDefault 속성이 지정하는
+            값이다. 이 속성의 기본값이 <b>false</b> 이므로, 메뉴 매니저가 메뉴를 최초로 로드할 때
+            모든 메뉴 아이템을 <b>disable(false)</b> 상태로 초기화하고 사용자가 권한이 있는 메뉴 아이템들에 대해서만
+            <b>enable</b> 상태로 바꾸는 것이다. 만약 이 속성 값을 <b>true</b>로 설정하면 메뉴 아이템들은 사용자의 권한에
+            상관없이 모두 <b>enable</b> 상태로 된다. 이렇게 MenuEnableDefault 값을 <b>true</b>로 설정하면
+            개발할때나 Debugging할때 전체 모든 메뉴의 상황을 살펴볼 수 있다.
+            <para>
+            비록 이 속성에 의해 사용자의 권한에 관계 없이 모든 메뉴 아이템을 볼 수 있다고 해서 사용자가
+            모든 메뉴에 접근할 수 있는 것이 아니다. 각 UI 화면들은 고유의 권한 검사를 추가적으로 수행하기 때문에
+            메뉴에서 나타난 UI 화면이라 할지라도 사용자 권한이 없으면 UI 화면은 열리지 않는다.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuManager.Item(System.String)">
+            <summary>
+            지정된 Menu ID를 가진 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 가져온다.
+            </summary>
+            <param name="id">Menu ID</param>
+            <returns><see cref="T:TheOne.UIModel.MenuItemInfo"/>객체를 반환하며, Menu ID가 존재하지 않는 경우 <b>null</b>을 반환한다.</returns>
+        </member>
+        <member name="T:TheOne.UIModel.MenuItemMoveOptions">
+            <summary>
+            메뉴 아이템 이동 시 이동할 위치를 지정하는 형식을 지정한다.
+            </summary>
+            <remarks>
+            이 열거자는 <see href="TheOne.UIModel.MenuManager.MoveMenuItem">MoveMyMenuItem</see> 메서드
+            호출에서 이동할 목적지 메뉴 아이템의 상대 위치를 나열할 때 사용된다.
+            </remarks>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.ChildFirst">
+            <summary>
+            목적지 메뉴 아이템의 자식으로써 자식의 맨 처음으로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.ChildLast">
+            <summary>
+            목적지 메뉴 아이템의 자식으로써 자식의 맨 끝으로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.SiblingPrevious">
+            <summary>
+            목적지 메뉴 아이템의 형제로써 목적지 아이템의 이전으로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.SiblingNext">
+            <summary>
+            목적지 메뉴 아이템의 형제로써 목적지 아이템의 다음으로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.SiblingFirst">
+            <summary>
+            목적지 메뉴 아이템의 형제로써 첫번째 위치로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuItemMoveOptions.SiblingLast">
+            <summary>
+            목적지 메뉴 아이템의 형제로써 마지막 위치로 메뉴 아이템을 이동한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.UIModel.Resources.Default">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_CreateXmlElement_1">
+            <summary>
+              XML Element를 생성할 수 없습니다. 필수 항목 ID가 null 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_CreateXmlElement_2">
+            <summary>
+              XML Element를 생성할 수 없습니다. 필수 항목 Title이 null 입니다. ID= {0}과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_GetMenuAction_1">
+            <summary>
+              action 속성 값에 알 수 없는 값이 명시되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_GetMenuAction_2">
+            <summary>
+              action 속성의 값이 비어 있습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_GetOptionalBooleanAttribute_1">
+            <summary>
+              {0} 속성이 잘못 되었습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_GetOptionalIntegerAttribute_1">
+            <summary>
+              {0} 속성이 잘못 되었습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_GetRequiredStringAttribute_1">
+            <summary>
+              필수 속성인 {0} 속성이 잘못 되었습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfo_ParseMenuInfo_1">
+            <summary>
+              메뉴 아이템의 ID가 명시되지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuItemInfoCollection_Remove_1">
+            <summary>
+              주어진 ID를 가진 메뉴가 컬렉션에 존재하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_DoAddMenuItem_1">
+            <summary>
+              중복된 메뉴 ID [{0}]를 가진 메뉴를 추가하려고 했습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_GetMenuUri_1">
+            <summary>
+              지원되지 않는 메뉴 Uri 위치 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_LoadMenu_1">
+            <summary>
+              상대 Uri는 지원하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_LoadMenu_2">
+            <summary>
+              메뉴 XML 스트림을 읽을 수 없습니다. Response Stream 이 null 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_MenuManager_1">
+            <summary>
+              메뉴 아이템 타입은 MenuItemInfo 클래스 혹은 그 파생 클래스 이어야 합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_MoveMenuItem_1">
+            <summary>
+              이동할 메뉴 아이템이 메뉴 테이블에 존재하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_MoveMenuItem_2">
+            <summary>
+              목적지 메뉴 아이템이 메뉴 테이블에 존재하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_MoveMenuItem_3">
+            <summary>
+              이동할 메뉴 아이템과 이동 목적지 메뉴 아이템이 동일합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_MoveMenuItem_4">
+            <summary>
+              잘못된 이동 위치 옵션입니다. option= {0}과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_ParseMenuItem_1">
+            <summary>
+              메뉴 아이템에 알 수 없는 속성( {0} )이 발견되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_ParseMenuItem_2">
+            <summary>
+              {0} 하위에는 {0} 만이 존재할 수 있습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_ParseMenuXmlStream_1">
+            <summary>
+              메뉴 XML 파싱 오류 :: 메뉴 XML이 Well-Formed 문서가 아닙니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_ParseMenuXmlStream_2">
+            <summary>
+              메뉴 XML 파싱 오류 :: 루트 요소는 MenuTree 이어야 합니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_ParseMenuXmlStream_3">
+            <summary>
+              메뉴 XML 파싱 오류 :: 알 수 없는 XML 요소 &apos;{0}&apos; 가 발견 되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_SaveMenuToFile_1">
+            <summary>
+              저장할 메뉴 XML 스트림을 생성할 수 없습니다. FileStream 이 null 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.Resources.Default.MenuManager_SaveMenuToFile_2">
+            <summary>
+              메뉴 XML 파일을 저장할 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="T:TheOne.UIModel.MenuItemInfo">
+            <summary>
+            메뉴 아이템에 대한 정보를 나타낸다.
+            </summary>
+            <remarks>
+            메뉴 프레임워크는 메뉴 아이템에 대한 정보를 MenuItemInfo 클래스를 통해 표현하며
+            이 클래스는 메뉴를 표현하는데 필요한 기본적인 정보들로 구성되어 있다.<br/>
+            이 정보들은 메뉴 아이템에 대한 ID, 제목, 메뉴 아이템의 행동 형식(<see cref="T:TheOne.UIModel.MenuAction">MenuAction</see>),
+            <b>enable</b> 상태, 숨김 상태(<b>hide</b>) 등을 포함한다. 또한 MenuItemInfo 클래스는 메뉴 아이템이
+            UI 를 표시하는 메뉴 행동 형식(<see cref="T:TheOne.UIModel.MenuAction">MenuAction</see>)으로 설정되었을 때 UI 를 표시하기 위한 Url, 
+            클래스 이름, UI 타이틀 역시 포함한다.
+            <para>일반적으로 메뉴들은 계층형 구조를 갖는데, 계층형 메뉴를 표현하기 위해 메뉴 아이템의 부모
+            아이템 및 자식 아이템들을 나타내는 <see cref="P:TheOne.UIModel.MenuItemInfo.Parent">Parent</see> 속성 및
+            <see cref="P:TheOne.UIModel.MenuItemInfo.Children">Children</see> 속성도 제공한다. 메뉴를 표시하는 화면은
+            이들 속성을 이용하여 계층형 메뉴를 표현할 수 있다.</para>
+            <para>MenuItemInfo 클래스에 포함되지 않은 정보를 메뉴 아이템 정보에 포함시켜야 한다면
+            이 클래스에서 파생된 파생 클래스를 정의할 수 있다. 파생 클래스는 <see cref="T:TheOne.UIModel.MenuManager">MenuManager</see>가
+            메뉴 아이템 객체를 생성할 수 있도록 <see cref="M:TheOne.UIModel.MenuItemInfo.CreateInstance(TheOne.UIModel.MenuItemInfo)">CreateInstance</see> 메서드를 재정의하여야
+            한다. 또한 메뉴 XML에서 메뉴 구조를 읽어 들인다면 
+            <see cref="M:TheOne.UIModel.MenuItemInfo.ParseMenuInfo(System.Xml.XmlNode,System.Boolean)">ParseMenuInfo</see> 메서드와 <see cref="M:TheOne.UIModel.MenuItemInfo.CreateXmlElement(System.Xml.XmlDocument)">CreateXmlElement</see>
+            메서드를 재정의하여 메뉴 XML을 파싱할 수 있도록 해야 한다.
+            이외에도 '내 메뉴' 기능에서 사용하는 <see cref="M:TheOne.UIModel.MenuItemInfo.CopyMember(TheOne.UIModel.MenuItemInfo)">CopyMember</see> 메서드를 재정의 하여 메뉴 아이템을
+            복제할 때 필요한 작업도 수행해야 할 수도 있다. 마지막으로 필요하다면 ElementName 속성을 재정의 하여
+            메뉴 XML을 파싱할 때 XML 요소(<b>element</b>)의 이름을 지정할 수도 있다.</para>
+            </remarks>
+            <example>
+            	<code lang="CS" title="MenuItemInfo 확장" description="MenuItemInfo 에 추가적인 정보를 담을 때 필요한 메뉴 아이템 정보 클래스 정의에 대한 예제를 보여준다.">
+            public class MyMenuItemInfo : MenuItemInfo
+            {
+                public string Designer;
+                
+            	// you must override this method.
+                public override MenuItemInfo CreateInstance(MenuItemInfo parent)
+                {
+                    MenuItemInfo menuInfo = new MyMenuItemInfo();
+                    menuInfo.Parent = parent;
+                    return menuInfo;
+                }
+                
+                public override void ParseMenuInfo(System.Xml.XmlNode xmlNode, bool enableDefault)
+                {
+            		// base implementation must be invoked first.
+                    base.ParseMenuInfo(xmlNode, enableDefault);
+                    // XML attribute name is "designer."
+                    MenuItemInfo.GetOptionalStringAttribute(xmlNode, "designer", out Designer);
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.#ctor">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfo"/> 클래스의 새 인스턴스를 초기화 한다.  
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.#ctor(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            지정된 메뉴아이템을 사용하여 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 클래스의 새 인스턴스를 초기화 한다.  
+            </summary>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.CopyMember(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            메뉴 아이템의 속성을 복사한다.
+            </summary>
+            <param name="source">복사 원본 메뉴 아이템</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.Clone">
+            <summary>
+            메뉴 아이템의 복사본 인스턴스를 만들며 자식 및 자손은 복제하지 않는다.
+            </summary>
+            <returns>복사되어 새로이 생성된 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.Clone(System.Boolean)">
+            <summary>
+            메뉴 아이템의 복사본 인스턴스를 만든다.
+            </summary>
+            <param name="cloneChild">자식 및 자손까지 복사를 할지 여부를 나타내는 값</param>
+            <returns>복사되어 새로이 생성된 <see cref="T:TheOne.UIModel.MenuItemInfo"/> 객체를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.CreateInstance(TheOne.UIModel.MenuItemInfo)">
+            <summary>
+            <see cref="T:TheOne.UIModel.MenuItemInfo"/> 클래스의 새 인스턴스를 초기화 하고 반환한다.  
+            </summary>
+            <returns><see cref="T:TheOne.UIModel.MenuItemInfo"/>객체(메뉴 그룹 혹은 메뉴 아이템)을 반환한다,</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.GetRequiredStringAttribute(System.Xml.XmlNode,System.String)">
+            <summary>
+            XML 노드에서 문자열 필수 속성의 값을 반환한다.
+            </summary>
+            <param name="xmlNode">XML 노드 객체</param>
+            <param name="attr">XML 속성 이름</param>
+            <returns>속성 값을 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.GetOptionalStringAttribute(System.Xml.XmlNode,System.String,System.String@)">
+            <summary>
+            XML 노드에서 옵션 속성의 문자열 값을 반환한다.
+            </summary>
+            <param name="xmlNode">XML 노드 객체</param>
+            <param name="attr">XML 속성 이름</param>
+            <param name="result">속성의 문자열 값</param>
+            <returns>속성의 존재 여부를 반환한다. 속성이 존재하지 않는다면 <b>false</b>이다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.GetOptionalIntegerAttribute(System.Xml.XmlNode,System.String,System.Int32@)">
+            <summary>
+            XML 노드에서 옵션 속성의 정수 값을 반환한다.
+            </summary>
+            <param name="xmlNode">XML 노드 객체</param>
+            <param name="attr">XML 속성 이름</param>
+            <param name="result">속성의 정수 값</param>
+            <returns>속성의 존재 여부를 반환한다. 속성이 존재하지 않는다면 <b>false</b>이다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.GetOptionalBooleanAttribute(System.Xml.XmlNode,System.String,System.Boolean@)">
+            <summary>
+            XML 노드에서 옵션 속성의 bool 값을 반환한다.
+            </summary>
+            <param name="xmlNode">XML 노드 객체</param>
+            <param name="attr">XML 속성 이름</param>
+            <param name="result">속성의 불린 값</param>
+            <returns>속성의 존재 여부를 반환한다. 속성이 존재하지 않는다면 <b>false</b>이다.</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.WriteXmlAttribute(System.Xml.XmlElement,System.String,System.String)">
+            <summary>
+            메뉴 아이템 XML 요소에 속성(attribute)을 기록한다.
+            </summary>
+            <param name="element">메뉴 아이템 XML 요소</param>
+            <param name="name">메뉴 아이템 XML 요소에 기록할 속성 이름</param>
+            <param name="value">기록할 속성 문자열 값</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.WriteXmlAttribute(System.Xml.XmlElement,System.String,System.Object)">
+            <summary>
+            메뉴 아이템 XML 요소에 속성(attribute)을 기록한다.
+            </summary>
+            <param name="element">메뉴 아이템 XML 요소</param>
+            <param name="name">메뉴 아이템 XML 요소에 기록할 속성 이름</param>
+            <param name="value">기록할 속성 객체 값</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.WriteXmlAttribute(System.Xml.XmlElement,System.String,System.Int32)">
+            <summary>
+            메뉴 아이템 XML 요소에 속성(attribute)을 기록한다.
+            </summary>
+            <param name="element">메뉴 아이템 XML 요소</param>
+            <param name="name">메뉴 아이템 XML 요소에 기록할 속성 이름</param>
+            <param name="value">기록할 속성 정수 값</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.WriteXmlAttribute(System.Xml.XmlElement,System.String,System.Boolean)">
+            <summary>
+            메뉴 아이템 XML 요소에 속성(attribute)을 기록한다.
+            </summary>
+            <param name="element">메뉴 아이템 XML 요소</param>
+            <param name="name">메뉴 아이템 XML 요소에 기록할 속성 이름</param>
+            <param name="value">기록할 속성 불린 값</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.ParseMenuInfo(System.Xml.XmlNode,System.Boolean)">
+            <summary>
+            메뉴 XML로 부터 메뉴 아이템을 파싱한다.
+            </summary>
+            <param name="xmlNode">파싱할 XML 노드</param>
+            <param name="enableDefault">enable 속성의 디폴트 값</param>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.CreateXmlElement(System.Xml.XmlDocument)">
+            <summary>
+            메뉴 XML 생성을 위한 XML 요소를 생성한다.
+            </summary>
+            <param name="xmlDoc">생성할 XML 요소를 포함할 XML Document 객체</param>
+            <returns>생성된 XML 요소</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.GetChildMenuById(System.String)">
+            <summary>
+            주어진 메뉴 아이디를 가진 자식 혹은 자손 메뉴 아이템을 반환한다.
+            </summary>
+            <param name="menuid">메뉴 아이디</param>
+            <returns>자식 메뉴 아이템</returns>
+        </member>
+        <member name="M:TheOne.UIModel.MenuItemInfo.SetMyMenuFlag(System.Boolean)">
+            <summary>
+            프레임워크 내부 사용을 위한 메서드. 내 메뉴의 아이템인가를 나타내는 플래그를 설정한다.
+            </summary>
+            <param name="isMyMenu">내 메뉴의 메뉴 아이템인가를 나타내는 플래그</param>
+            <remarks>
+            <para>메뉴 아이템이 내 메뉴의 메뉴 아이템인가에 대한 여부는 메뉴 프레임워크에 의해
+            결정된다. 따라서 일반 개발자는 이 속성 값을 임으로 바꾸어서는 안된다.</para>
+            <para>메뉴 아이템이 내 메뉴 아이템으로 설정되면 그 자식 및 자손들까지 모두
+            내 메뉴 아이템으로 설정됨에 유의한다.</para>
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.ElementName">
+            <summary>
+            메뉴 XML에서 사용할 메뉴 요소(element) 이름을 가져온다.
+            </summary>
+            <remarks>
+            메뉴 XML을 메뉴 매니저(<see cref="T:TheOne.UIModel.MenuManager">MenuManager</see>)가 Parsing할 때 사용할
+            XML 요소의 이름을 반환한다. 기본값은 <b>MenuItem</b> 이다.
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.ID">
+            <summary>
+            메뉴의 ID를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Title">
+            <summary>
+            메뉴의 제목을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Action">
+            <summary>
+            메뉴 아이템의 행동 형식을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Hide">
+            <summary>
+            메뉴의 숨김 여부를 나타내는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Enabled">
+            <summary>
+            메뉴의 활성화 여부를 가져오거나 설정한다.
+            </summary>
+            <value>메뉴 아이템의 <b>enable</b>/<b>disable</b>상태를 나타내는 boolean 값.</value>
+            <remarks>
+            이 속성의 값을 설정하면 메뉴 아이템 트리 상에서 부모 및 조상에 대한 <b>Enabled</b> 속성
+            설정이 자동으로 이루어 진다. 즉, 어떤 메뉴 아이템이 활성화가 되면 이 메뉴 아이템의
+            부모 및 조상은 모두 활성화 된다.
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.ForceEnabled">
+            <summary>
+            메뉴 XML에 기록된 메뉴 아이템의 <b>Enable</b> 속성 값을 가져오거나 설정한다.
+            </summary>
+            <remarks>
+            메뉴의 <b>enable</b>/<b>disable</b>설정은 메뉴 프레임워크에 의해 사용자별 메뉴 권한의
+            상태를 나타내며 이 속성은 <see cref="P:TheOne.UIModel.MenuItemInfo.Enabled">Enabled</see> 속성에 제어된다.
+            반면 메뉴 XML 내에 기록된 메뉴 아이템의 <b>enable</b>속성은 <see cref="P:TheOne.UIModel.MenuItemInfo.ForceEnabled">ForceEnabled</see>속성에 의해
+            기록된다.
+            </remarks>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Url">
+            <summary>
+            UI 컨트롤 DLL에 대한 Url 문자열을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.ClassName">
+            <summary>
+            UI 컨트롤의 클래스 이름(Full Name)을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Expanded">
+            <summary>
+            메뉴의 확장 여부 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.DisplayTitle">
+            <summary>
+            메뉴 타이틀에서 사용할 문자열을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.ExtraInfo">
+            <summary>
+            추가적인 매개변수를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Parent">
+            <summary>
+            Menu Tree에서 부모 메뉴 아이템을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.Children">
+            <summary>
+            자식들에 대한 <see cref="T:TheOne.UIModel.MenuItemInfoCollection"/>객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.HasChildren">
+            <summary>
+            자식을 가지고 있는지 여부를 반환한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.IsTopLevel">
+            <summary>
+            최상위 메뉴 아이템 여부를 반환한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.IsTerminal">
+            <summary>
+            최하위 메뉴 아이템 여부를 반환한다. 
+            </summary>
+        </member>
+        <member name="P:TheOne.UIModel.MenuItemInfo.IsMyMenu">
+            <summary>
+            메뉴 아이템이 내 메뉴의 메뉴 아이템인가에 대한 여부를 반환한다.
+            </summary>
+            <value>메뉴 아이템이 내 메뉴의 아이템인가를 나타내는 bool 값.</value>
+        </member>
+        <member name="T:TheOne.UIModel.MenuAction">
+            <summary>
+            메뉴가 클릭되었을 때 수행하는 행동에 대한 열거자
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.None">
+            <summary>
+            아무런 작동도 하지 않음. 디폴트 메뉴 액션.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.Navigate">
+            <summary>
+            주어진 URL로 이동하거나 UI 화면을 열고 수행함.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.OpenUI">
+            <summary>
+            주어진 UI 화면을 열고 수행함.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.Expand">
+            <summary>
+            메뉴 그룹 선택에 따라 하위 메뉴(왼쪽 메뉴와 같은)를 설정하거나 하위 메뉴 아이템들을 expand/collapse 함.
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.NavigateExpand">
+            <summary>
+            메뉴 선택과 expand/collapse를 모두 수행
+            </summary>
+        </member>
+        <member name="F:TheOne.UIModel.MenuAction.CustomAction">
+            <summary>
+            커스텀 액션을 수행함
+            </summary>
+        </member>
+        <member name="T:TheOne.UIModel.IMenuAcl">
+            <summary>
+            메뉴 권한을 정의하는 인터페이스이다.
+            </summary>
+            <remarks>
+            메뉴에서 사용자 별로 권한이 있는 메뉴의 ID들을 읽어 오기 위해 메뉴 권한 객체는
+            <see cref="T:TheOne.UIModel.IMenuAcl"/>를 구현해야만 한다.<br/>
+            MenuManager는 메뉴 권한 객체가 반환한 메뉴 아이디 리스트에
+            의해 메뉴의 <b>enable</b>과 <b>disbale</b>을 설정하며 메뉴를 표시하는 Menu Control은 표시할 메뉴 아이템을
+            결정하게 된다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.UIModel.IMenuAcl.GetUserMenus(System.String,System.String)">
+            <summary>
+            지정된 사용자에 대하여 해당 메뉴 그룹 내의 Menu ID들을 반환하게 된다.
+            </summary>
+            <param name="userid">사용자 아이디</param>
+            <param name="menugroupid">메뉴 그룹 아이디</param>
+            <returns>Menu ID를 가지고 있는 컬렉션을 반환한다.</returns>
+        </member>
+    </members>
+</doc>

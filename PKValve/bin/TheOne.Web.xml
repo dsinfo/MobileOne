@@ -1,0 +1,1567 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheOne.Web</name>
+    </assembly>
+    <members>
+        <member name="T:TheOne.Web.UI.WebControls.TreeMenu">
+            <summary>
+            TreeView 컨트롤을 이용한 트리 기반의 메뉴 컨트롤
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.TreeMenu.MenuAclType">
+            <summary>
+            메뉴 권한을 정의하는 타입
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.TreeMenu.menuList">
+            <summary>
+            사용자의 메뉴
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.TreeMenu.initialMenuId">
+            <summary>
+            초기 선택할 메뉴 Id
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.TreeMenu.customPopulate">
+            <summary>
+            커스텀 Populate 여부
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.TreeMenu.navigatableParentImage">
+            <summary>
+            부모 노드 중 navigate가 가능한 노드의 이미지
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.#ctor">
+            <summary>
+            생성자
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.PopulateMenu(System.Web.UI.WebControls.TreeNode)">
+            <summary>
+            주어진 트리 노드의 하위 노드들을 생성한다.
+            메뉴 데이터 구조(GlobalMenuGroup 및 MenuItemInfo 들)로부터
+            메뉴 트리 노드들을 생성하며, 메뉴 권한 및 지역에 의해 표시되는 메뉴 항목들이
+            달라진다.
+            </summary>
+            <param name="node">트리 노드</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.SeletInitialNode">
+            <summary>
+            초기 메뉴 아이템 선택
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.GenerateNode(System.String[],System.Int32,System.Web.UI.WebControls.TreeNode)">
+            <summary>
+            InitialMenuId 설정이나 PostBack 발생시 기본 선택된 트리 노드까지
+            expand되도록 한다.
+            </summary>
+            <param name="path">노드 경로 배열</param>
+            <param name="pos">배열 상의 위치</param>
+            <param name="node">부모 노드</param>
+            <remarks>
+            ViewState가 disable되었고 PopulateNodesFromClient가 true이므로
+            선택에 필요한 노드 중 일부가 아직 생성되어 있지 않을 수도 있다.
+            따라서 선택된 노드를 찾아 가며 필요한 노드들을 생성해 준다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.UnEscape(System.String)">
+            <summary>
+            TreeNode 이름의 Escape를 처리해 준다.
+            </summary>
+            <param name="value">노드 경로 문자열</param>
+            <returns>escape가 처리된 문자열</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.InitMenu(System.String)">
+            <summary>
+            메뉴를 초기화 한다.
+            </summary>
+            <param name="partid">메뉴 대분류 아이디</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.RaisePostBackEvent(System.String)">
+            <summary>
+            RaisePostBackEvent 오버라이드
+            </summary>
+            <param name="eventArgument">Postback에 의해 전달된 매개변수</param>
+            <remarks>
+            PostBack이 발생하면 이를 처리하여 필요한 이벤트를 발생시킨다.
+            이 메쏘드에 의해 발생되는 대표적인 이벤트들은 Click, SelectedNodeChanged 등 이다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.OnInit(System.EventArgs)">
+            <summary>
+            OnInit 메쏘드 오버라이드.
+            기본 최상위 노드들을 확장하고, InitialMenuId가 선택되어 있다면 이것을
+            자동으로 선택한다(필요한 경우 상위 노드 확장).
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.OnTreeNodePopulate(System.Web.UI.WebControls.TreeNodeEventArgs)">
+            <summary>
+            OnTreeNodePopulate 메쏘드 오버라이드.
+            하위노드를 자동으로 렌더링 한다.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.OnPreRender(System.EventArgs)">
+            <summary>
+            OnPreRender 메쏘드 오버라이드.
+            초기 선택할 메뉴 아이템이 있다면 이것을 선택한다.
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.OnLoad(System.EventArgs)">
+            <summary>
+            OnLoad 메소드 오버로드.
+            Tree Image가 설정되지 않은 경우 기본 이미지 설정
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.TreeMenu.RenderContents(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            RenderContents 메쏘드 오버라이드.
+            HTML 컨텐트를 렌더링 한다.
+            </summary>
+            <param name="output">HtmlTextWriter 객체</param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.MenuManager">
+            <summary>
+            메뉴 트리 컨트롤이 표시할 메뉴 아이템 구조를 담고 있는 메뉴 매니저 객체를 읽거나 설정한다.
+            </summary>
+            <value>메뉴 아이템 구조를 담는 <see cref="P:TheOne.Web.UI.WebControls.TreeMenu.MenuManager"/> 객체</value>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.PartID">
+            <summary>
+            메뉴 대분류 ID
+            </summary>
+            <remarks>
+            NeoDEEX가 제공하는 메뉴 환경은 여러 서브 시스템을 ID로 구분하고 이를 각각
+            파트라 부르고 각 파트 별로 별도의 메뉴를 사용할 수 있도록 되어 있다.
+            </remarks>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.CustomPopulate">
+            <summary>
+            메뉴의 하위 노드 생성시 커스텀 코드 사용 여부
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.InitialMenuId">
+            <summary>
+            초기 선택할 메뉴 Id
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.NavigatableParentImage">
+            <summary>
+            메뉴를 표시할 서브 시스템 ID
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.TreeMenu.EnableViewState">
+            <summary>
+            EnableViewState 속성 overload. 성능을 위해 디폴트 값을 false로 한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ScrollOffset">
+            <summary>
+            자동 스크롤시 스크롤위치가 어디에 놓일 것인지 지정하는 enumerator
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ScrollOffset.Top">
+            <summary>
+            선택행이 그리드의 제일 윗줄로 나오도록 함
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ScrollOffset.Middle">
+            <summary>
+            선택행이 그리드의 중간 위치에 나오도록 함
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ScrollOffset.Bottom">
+            <summary>
+            선택행이 그리드의 제일 아랫줄로 나오도록 함
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ScrollDataGrid">
+            <summary>
+            ScrollDataGrid 컨트롤은 헤더가 고정되어 있고 데이터 부분이 스크롤되는
+            데이터 그리드 컨트롤이다. 이 클래스는 System.Web.UI.WebControl.DataGrid에서
+            파생되었다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.DataGridEx">
+            <summary>
+            DataGrid의 ViewState 의존도, 비효율적인 자식 컨트롤 생성 등의 문제를 해결한
+            DataGridEx 컨트롤 구현
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DataGridEx.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)">
+            <summary>
+            IPostBackEventHandler의 RaisePostBackEvent를 구현한다. PostBack 이벤트의
+            매개변수를 분석하여 PageIndexChanged 이벤트와 SortCommand 이벤트,
+            SelectedIndexChanged 이벤트를 디스패치 한다.
+            </summary>
+            <param name="eventArgument">이벤트 매개변수</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DataGridEx.InitializeHeaderCell(System.Web.UI.WebControls.DataGridColumn)">
+            <summary>
+            정렬을 위한 링크버튼 컨트롤을 생성하여 반환한다.
+            </summary>
+            <param name="column">정렬버튼의 대상이 되는 DataGridColumn 객체</param>
+            <returns>DataLinkButtonEx 컨트롤</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DataGridEx.InitializeItem(System.Web.UI.WebControls.DataGridItem,System.Web.UI.WebControls.DataGridColumn[])">
+            <summary>
+            오버라이드 됨. DataGridItem을 초기화 한다. 컬럼 개수만큼 TableCell 컨트롤을 만들고 이를
+            초기화 한다.
+            </summary>
+            <param name="item">초기화할 DataGridItem 객체</param>
+            <param name="columns">초기화에 사용할 DataGridColumn 배열</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DataGridEx.InitializePager(System.Web.UI.WebControls.DataGridItem,System.Int32,System.Web.UI.WebControls.PagedDataSource)">
+            <summary>
+            오버라이드 됨. 페이저 DataGridItem을 초기화 한다.
+            </summary>
+            <param name="item">초기화할 DataGridItem 객체</param>
+            <param name="columnSpan">COLSPAN 특성으로 사용할 값</param>
+            <param name="pagedDataSource">페이징 데이터 소스 객체</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DataGridEx.OnPreRender(System.EventArgs)">
+            <summary>
+            오버라이드됨. 현재 페이지 정보를 Hidden Field 에 기록하는 추가 작업을 수행한다.
+            </summary>
+            <param name="e">표준 이벤트 매개변수 객체</param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DataGridEx.IsPagingEnableEx">
+            <summary>
+            확장 페이징을 사용해야 하는가를 반환한다. AllowPaging, AllowPagingEx가 모두
+            true이고 EnableViewState 가 false 일 때만 확장 페이징이 활성화 된다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DataGridEx.IsSortingEnableEx">
+            <summary>
+            확장 정렬을 사용해야 하는가를 반환한다. AllowSorting, AllowSortingEx가 모두
+            true이고 EnableViewState 가 false 일 때만 확장 페이징이 활성화 된다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DataGridEx.AllowPagingEx">
+            <summary>
+            ViewState가 disblae 되어 있더라도 Paging이 가능하도록 설정
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DataGridEx.AllowSortingEx">
+            <summary>
+            ViewState가 disable 되어 있더라도 Sorting이 가능하도록 설정
+            </summary>
+            <remarks>
+            AllowSortingEx 속성이 true 일지라도 AllowSorting이 true가 아니면
+            Sorting 기능이 활성화 되지 않는다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ScrollDataGrid.#ctor">
+            <summary>
+            ScrollDataGrid 생성자.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ScrollDataGrid.OnLoad(System.EventArgs)">
+            <summary>
+            OnLoad 이벤트에서 필요하다면 현재 페이지 정보를 읽어 들인다.
+            </summary>
+            <param name="e">표준 이벤트 매개변수</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ScrollDataGrid.OnPreRender(System.EventArgs)">
+            <summary>
+            preRender handler를 override해서 property를 추가한다
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ScrollDataGrid.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            ScrollData 그리드를 HTML table로 렌더링 한다.
+            </summary>
+            <param name="writer">HtmlTextWriter</param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ScrollDataGrid.AutoGenerateColumns">
+            <summary>
+            ScrollDataGrid는 AutoGenerateColumn이 항상 false이다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ScrollDataGrid.AutoScroll">
+            <summary>
+            htc의 자동 스크롤 기능을 사용할지의 여부
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ScrollDataGrid.ScrollOffset">
+            <summary>
+            htc의 자동 스크롤 기능을 사용할지의 여부
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ListBoxEx">
+            <summary>
+            ListBoxEx 컨트롤은 SELECT 태그를 사용하지 않고 Behavior를 사용한다.
+            따라서 absolute position을 사용하는 다른 태그와 겹치더라도 SELECT 태그가
+            갖는 문제점을 야기하지 않는다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ListBoxEx.System#Web#UI#IPostBackDataHandler#LoadPostData(System.String,System.Collections.Specialized.NameValueCollection)">
+            <summary>
+            PostBack이 되었을 때 포스트백된 데이터를 읽어들인다.
+            </summary>
+            <param name="postDataKey">포스트백 데이터 키</param>
+            <param name="postCollection">데이터 컬렉션</param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ListBoxEx.System#Web#UI#IPostBackDataHandler#RaisePostDataChangedEvent">
+            <summary>
+            포스트백된 값의 변경 사항이 있다면 OnSelectedIndexChanged 메소드를
+            호출하여 SelectedIndexChanged 이벤트를 발생한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ListBoxEx.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            ListBox 컨트롤을 Behavior로 렌더링 한다.
+            </summary>
+            <param name="output"> 출력을 쓸 HTML 작성기 </param>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.LinkButtonEx">
+            <summary>
+            LinkButtonEx는 클라이언트가 발생하는 포스트 백 이벤트의 매개변수를 받을
+            수 있는 LinkButton 컨트롤이다.
+            </summary>
+            <remarks>
+            클라이언트 스크립트가 __doPostBack() 함수를 사용하여 LinkButtonEx를 호출할 때
+            __doPostBack() 함수의 두번째 매개변수를 Click 및 Command 이벤트에서 넘겨
+            받을 수 있다. 이벤트는 LinkButtonExEventArgs 및 LinkButtonExCommandEventArgs 클래스
+            의 인스턴스를 매개변수로 받는다. 따라서 적절한 캐스팅으로 클라이언트 자바
+            스크립트가 넘겨주는 매개변수를 받을 수 있다.
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonEx.System#Web#UI#IPostBackEventHandler#RaisePostBackEvent(System.String)">
+            <summary>
+            포스트 백 이벤트가 발생하면 Click 이벤트와 Command 이벤트를 발생시킨다.
+            Click 이벤트의 매개변수는 LinkButtonExEventArgs 클래스의 인스턴스 이며
+            Command 이벤트의 매개변수는 LinkButtonExCommandEventArgs 클래스의
+            인스턴스 이다.
+            </summary>
+            <param name="argument">클라이언트로 부터 넘겨진 포스트 백 이벤트 매개변수</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonEx.GetClientPostBackReference">
+            <summary>
+            포스트 백을 발생시키는 자바 스크립트 코드를 생성한다. 이 메소드가
+            Page.GetPostBackEventReference() 메소드와 다른점은 페이지 내에
+            Validation 컨트롤이 사용중 이라면 필요한 유효성 검사를 먼저 수행하고
+            포스트 백이 발생하도록 자바 스크립트를 생성한다는 점이다.
+            </summary>
+            <returns>포스트 백을 수행하는 자바 스크립트 코드</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonEx.GetClientPostBackReference(System.String)">
+            <summary>
+            포스트 백을 발생시키는 자바 스크립트 코드를 생성한다. 이 메소드가
+            Page.GetPostBackEventReference() 메소드와 다른점은 페이지 내에
+            Validation 컨트롤이 사용중 이라면 필요한 유효성 검사를 먼저 수행하고
+            포스트 백이 발생하도록 자바 스크립트를 생성한다는 점이다.
+            </summary>
+            <param name="argument">서버에 넘겨줄 매개변수</param>
+            <returns>포스트 백을 수행하는 자바 스크립트 코드</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonEx.GetClientPostBackHyperlink">
+            <summary>
+            포스트 백을 발생시키는 자바 스크립트 코드를 생성한다. 이 메소드가
+            Page.ClientScript.GetPostBackEventReference() 메소드와 다른점은 페이지 내에
+            Validation 컨트롤이 사용중 이라면 필요한 유효성 검사를 먼저 수행하고
+            포스트 백이 발생하도록 자바 스크립트를 생성한다는 점이다.
+            이 메소드는 자바 스크립트 앞에 javascript: 을 붙여 href 와 같은 속성에
+            사용할 수 있도록 해준다.
+            </summary>
+            <example>
+            <code>
+            Response.Write("&gt;a href=\"" + LinkButtonEx.GetClientPostBackHyperlink("param") +
+            "\"&lt;태그&gt;/a&lt;");
+            </code>
+            </example>
+            <returns>포스트 백을 수행하는 자바 스크립트 코드</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonEx.GetClientPostBackHyperlink(System.String)">
+            <summary>
+            포스트 백을 발생시키는 자바 스크립트 코드를 생성한다. 이 메소드가
+            Page.GetPostBackEventReference() 메소드와 다른점은 페이지 내에
+            Validation 컨트롤이 사용중 이라면 필요한 유효성 검사를 먼저 수행하고
+            포스트 백이 발생하도록 자바 스크립트를 생성한다는 점이다.
+            이 메소드는 자바 스크립트 앞에 javascript: 을 붙여 href 와 같은 속성에
+            사용할 수 있도록 해준다.
+            </summary>
+            <param name="argument">서버에 넘겨줄 매개변수</param>
+            <returns>포스트 백을 수행하는 자바 스크립트 코드</returns>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.LinkButtonExEventArgs">
+            <summary>
+            LinkButtonEx의 Click 이벤트의 두번째 매개변수로 사용되는 이벤트 매개변수 클래스.
+            비록 Click 이벤트의 signature가 EventArgs 클래스로 되어 있지만
+            실제 인스턴스는 LinkButtonExEvetnArgs이므로 캐스팅(casting)을 통해
+            매개변수에 접근할 수 있다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonExEventArgs.#ctor(System.String)">
+            <summary>
+            주어진 PostBack 매개변수를 취하는 LinkButtonExEventArgs 객체를 생성한다.
+            </summary>
+            <param name="argument"></param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.LinkButtonExEventArgs.Argument">
+            <summary>
+            클라이언트가 발생한 포스트 백 이벤트의 매개변수
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.LinkButtonExCommandEventArgs">
+            <summary>
+            LinkButtonEx의 Command 이벤트의 두번째 매개변수로 사용되는 이벤트 매개변수 클래스.
+            비록 Click 이벤트의 signature가 CommandEventArgs 클래스로 되어 있지만
+            실제 인스턴스는 LinkButtonExCommandEventArgs이므로 캐스팅(casting)을 통해
+            매개변수에 접근할 수 있다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.LinkButtonExCommandEventArgs.#ctor(System.String,System.Object,System.String)">
+            <summary>
+            주어진 이름, 매개변수를 갖는 LinkButtonExCommandEventArgs 객체를 생성한다.
+            clientArgument 매개변수는 클라이언트 자바 스크립트가 넘겨준 값을 의미한다.
+            </summary>
+            <param name="name">커맨드 명</param>
+            <param name="argument">커맨드 매개변수</param>
+            <param name="clientArgument">클라이언트(javascript)에서 보낸 매개변수</param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.LinkButtonExCommandEventArgs.Argument">
+            <summary>
+            클라이언트가 발생한 포스트 백 이벤트의 매개변수
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.UseScrollBar">
+            <summary>
+            ScrollBar를 사용할지의 여부
+            </summary>
+            <whichType>enum</whichType>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.UseScrollBar.visible">
+            <summary>
+            사용하지 않음
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.UseScrollBar.scroll">
+            <summary>
+            스크롤를 항상 표시함
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.UseScrollBar.hidden">
+            <summary>
+            스크롤을 표시 하지 않음
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.UseScrollBar.auto">
+            <summary>
+            컨트텐츠 크기에 따라 자동으로 스크롤을 표시함
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.DropDownListEx">
+            <summary>
+            DropDownListEx 컨트롤은 SELECT 태그를 사용하지 않고 Behavior를 사용한다.
+            따라서 absolute position을 사용하는 다른 태그와 겹치더라도 SELECT 태그가
+            갖는 문제점을 야기하지 않는다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DropDownListEx.OnPreRender(System.EventArgs)">
+            <summary>
+            OnPreRender 메소드
+            </summary>
+            <param name="e">Event Arguments</param> 
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DropDownListEx.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            Render this control to the output parameter specified.
+            </summary>
+            <param name="output"> The HTML writer to write out to </param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DropDownListEx.ExpandImage">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DropDownListEx.SIC_Script">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DropDownListEx.UseScroll">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DropDownListEx.DdlHeight">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.ResourceDllHandler">
+            <summary>
+            HTTP 처리기를 사용하여 스마트 클라이언트 DLL과 Resource DLL 처리를 위한 리소스 DLL 핸들러를 처리한다. 
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.ResourceDllHandler.#ctor">
+            <summary>
+            <see cref="T:TheOne.Web.ResourceDllHandler"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.ResourceDllHandler.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            <b>HttpHandler</b>를 사용하여 스마트 클라이언트 DLL과 Resource DLL 처리를 한다.
+            </summary>
+            <param name="context">HTTP 요청을 처리하는 데 사용되는 내장 서버 개체에 대한 참조를 제공하는 <see cref="T:System.Web.HttpContext"/> 개체</param>
+        </member>
+        <member name="P:TheOne.Web.ResourceDllHandler.IsReusable">
+            <summary>
+            다른 요청에서 <see cref="T:System.Web.IHttpHandler"/> 인스턴스를 사용할 수 있는지 여부를 나타내는 값을 가져옵니다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.HttpFileService">
+            <summary>
+            파일 업로드/다운로드 처리에 대한 서버 서비스 클래스이다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.#ctor">
+            <summary>모든 정보를 <b>GeneralSection</b> 에 정의된 값을 사용하여 <see cref="T:TheOne.Web.HttpFileService"/> 클래스의 새 인스턴스를 초기화한다.</summary>
+            <remarks>
+            	이 생성자를 사용하기위해서는 서버에 있는 NeoDEEX 구성요소에서 <b>FileBaseUrl</b> / <b>UserName</b> /
+                <b>Password</b> 에 대한 설정이 필요하다.<br/>
+            	<b>FileBaseUrl</b> 설정이 없는 경우에는 예외가 발생하며, <b>UserName</b> / <b>Password</b> 가 없는 경우에는 익명 사용자로
+                처리된다.
+            </remarks>
+            <example>
+            	<para>다음과 같은 설정이 필요하다.</para>
+            	<code lang="XML" title="Server Configuration 정보" description="Server Configuration 정보">
+            		<![CDATA[
+            <generalSection>
+                <add name="FileBaseUrl" value="경로"/>
+                <add name="UserName" value="도메인\계정"/>
+                <add name="Password" value="암호"/>
+            </generalSection>
+            
+            실제예:
+            <generalSection>
+                <add name="FileBaseUrl" value="C:\Temp" />
+                <add name="UserName" value="user"/>
+                <add name="Password" value="pwd"/>
+            </generalSection>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.#ctor(System.String)">
+            <summary>
+            기본 폴더를 매개변수로 사용하여 <see cref="T:TheOne.Web.HttpFileService"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <remarks>
+            	<para>이 생성자를 사용하기 위해서는  서버에 있는 NeoDEEX 구성요소에서 <b>UserName</b> / <b>Password</b> 에 대한 설정이 필요하다. <br/>
+            	  <b>UserName</b> / <b>Password</b> 에 대한 설정이 없는 경우에는 익명 사용자로 처리된다.</para>
+            </remarks>
+            <example>
+            	<para>다음과 같은 설정이 필요하다.</para>
+            	<code lang="XML" description="Server Configuration 정보">
+            		<![CDATA[
+            <generalSection>
+                <add name="UserName" value="도메인\계정"/>
+                <add name="Password" value="암호"/>
+            </generalSection>]]>
+            	</code>
+            	<code lang="CS" title="[New Example]" description="코드 사용 예">
+            		<![CDATA[
+            public partial class OneUploaderService : System.Web.UI.Page
+            {
+                protected void Page_Load(object sender, EventArgs e)
+                {
+                    TheOne.Web.HttpFileService service = new TheOne.Web.HttpFileService(@"\\서버\폴더명");
+                    service.ProcessRequest();
+                }
+            }]]>
+            	</code>
+            </example>
+            <param name="fileBaseDIr">기본 폴더 경로</param>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.#ctor(System.String,System.String)">
+            <summary>
+            계정 정보를 매개변수로 사용하여 <see cref="T:TheOne.Web.HttpFileService"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="userName">사용자 이름</param>
+            <param name="password">암호</param>
+            <remarks>
+            이 생성자를 사용하기 위해서는 서버에 있는 NeoDEEX 구성요소에서 FileBaseUrl 에 대한 설정이 필요하다. 
+            </remarks>
+            <example>
+            	<para>다음과 같은 설정이 필요하다.</para>
+            	<code lang="XML" description="Server Configuration 정보">
+            		<![CDATA[
+            <generalSection>
+                <add name="FileBaseUrl" value="경로"/>
+            </generalSection>]]>
+            	</code>
+            	<code lang="CS" title="[New Example]" description="코드 사용 예">
+            		<![CDATA[
+            public partial class OneUploaderService : System.Web.UI.Page
+            {
+                protected void Page_Load(object sender, EventArgs e)
+                {
+                    TheOne.Web.HttpFileService service = new THeOne.Web.HttpFileService(@"도메인\계정", "암호");
+                    service.ProcessRequest();
+                }
+            }]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.#ctor(System.String,System.String,System.String)">
+            <summary>
+            기본 폴더경로, 사용자 이름, 암호를 사용하여 <see cref="T:TheOne.Web.HttpFileService"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+            <param name="fileBaseDir">기본 폴더</param>
+            <param name="userName">사용자 이름</param>
+            <param name="password">암호</param>
+            <remarks>
+            이 생성자를 사용하는 경우에는 서버에 있는 NeoDEEX 구성요소에 대한 설정이 필요 없다. 
+            </remarks>
+            <example>
+            	<code lang="CS" title="[New Example]" description="코드 사용 예">
+            		<![CDATA[
+            public partial class OneUploaderService : System.Web.UI.Page
+            {
+                protected void Page_Load(object sender, EventArgs e)
+                {
+                    TheOne.Web.HttpFileService service = new TheOne.Web.HttpFileService(@"경로" @"도메인\계정", "암호");
+                    service.ProcessRequest();
+                }
+            }]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.ProcessRequest">
+            <summary>
+            파일 업로드 / 다운로드에 대한 서비스를 처리한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            파일 업로드 / 다운로드에 대한 서비스를 처리한다.
+            </summary>
+            <param name="context"><see cref="T:System.Web.HttpContext"/> 객체</param>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.MoveFile(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 이동
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.CopyFile(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 복사
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.Rename(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 이름 변경
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.Delete(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 삭제
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.GetInfo(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 정보 반환
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.GetList(System.Web.HttpContext)">
+            <summary>
+            파일/폴더 정보 리스트 반환
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.FileUpload(System.Web.HttpContext)">
+            <summary>
+            파일 업로드(4096byte)
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.FileDownload(System.Web.HttpContext)">
+            <summary>
+            파일 다운로드(4096byte)
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.GetFileBaseDir">
+            <summary>
+            Base Directory 값을 
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.CopyDirectory(System.String,System.String)">
+            <summary>
+            소스 폴더의 하위 폴더의 내용 까지 모두 복사.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.HttpFileService.CombineEx(System.String[])">
+            <summary>
+            여러개의 패스 문자를 순서대로 합쳐 준다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.PageBase">
+            <summary>
+            PageBase는 System.Web.UI.Page에서 파생된 클래스로서 TheOne를 사용하는 
+            웹 어플리케이션의 웹 페이지들에 대한 기본 클래스 이다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.#ctor">
+            <summary>
+            <see cref="T:TheOne.Web.UI.PageBase"/> 클래스의 새 인스턴스를 초기화한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.OnInit(System.EventArgs)">
+            <summary>
+            표준 로그온 검사 및 사용자 정보 설정을 수행한다.<br/>
+            이미 로그온이 되어 있다면 사용자 정보를 페이지에 기록해 두고,
+            로그온 되어 있지 않고 <see cref="P:TheOne.Web.UI.PageBase.RequireLogon"/> 속성이 <b>true</b> 이면
+            로그온 페이지로 이동 한다.
+            로그온 페이지는 PageBase의 static 속성인 <see cref="P:TheOne.Web.UI.PageBase.LogonPageUrl"/>을 참고한다.
+            <see cref="P:TheOne.Web.UI.PageBase.LogonPageUrl"/>의 기본값은 어플리케이션의 최상위에 존재하는 logon.aspx 이다.
+            </summary>
+            <param name="e">표준 이벤트</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.OnLoad(System.EventArgs)">
+            <summary>
+            Load 이벤트가 발생하기 전에 필요한 사전 처리를 수행한다.<br/>
+            권한 검사가 필요하다면 권한 검사를 위한  <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 인스턴스를 초기화하고
+            페이지 열기에 대한 권한을 검사한다. 또한 페이지의 상태 정보를 설정한다.
+            </summary>
+            <remarks>
+            <b>주의 : </b>이 메서드를 재정의 하는 경우, 반드시 기본 클래스의
+            OnLoad 메서드를 호출해야 한다.
+            </remarks>
+            <param name="e">표준 이벤트</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.OnError(System.EventArgs)">
+            <summary>
+            페이지 예외 발생시 Exception 객체를 HttpContext의 Items 컬렉션에 기록하여
+            예외 페이지에서 예외 정보를 알 수 있도록 해준다.
+            </summary>
+            <param name="e">표준 이벤트 매개변수 객체</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.SetExceptionInfo(TheOne.Web.UI.PageBase)">
+            <summary>
+            예외 정보를 세션 객체에 기록하여 오류 처리 페이지에서 참조할 수 있도록 한다.
+            </summary>
+            <param name="page">예외를 유발한 웹 페이지 객체</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.CreateSecurityContext">
+            <summary>
+            권한 검사 수행을 위한 <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 클래스를 초기화하고 반환한다.<br/>
+            이 메서드가 생성하는 <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 객체는 <see cref="F:TheOne.Web.UI.PageBase.securityContextDefault"/> 속성이
+            지시하는 클래스의 인스턴스이다.
+            </summary>
+            <remarks>
+            이 메서드는 현재 페이지 객체(Page 클래스)의 참조를 생성자에게 넘겨준다.
+            즉, <see cref="F:TheOne.Web.UI.PageBase.securityContextDefault"/> 속성이 지시하는 클래스는 <b>object</b> 타입의 매개변수를
+            취하는 생성자를 정의해야만 한다.
+            </remarks>
+            <returns><see cref="T:TheOne.Security.ISecurityContext"/> 인터페이스를 구현하는 <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 객체</returns>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.CannotOpenPage">
+            <summary>
+            페이지 액세스 권한이 없는 경우 호출되어 진다. 기본값으로 설정된
+            오류 페이지(<see cref="P:TheOne.Web.UI.PageBase.AuthErrorPageUrl"/> 속성)로 이동한다.
+            URL이 설정되어 있지 않으면 <b>HTTP 403</b> 오류를 발생시킨다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.EnableButtonControl(System.Web.UI.Control[],System.Boolean)">
+            <summary>
+            지정된 버튼들을 활성화 하거나 비활성화 한다.<br/>
+            버튼 컨트롤은 <b>Button(WebControls)</b>, <b>LinkButton</b>, <b>ImageButton</b>, <b>HtmlInputButton</b>,
+            <b>HtmlButton</b> 중 하나이어야 한다.
+            </summary>
+            <param name="buttons">버튼 타입의 컨트롤 배열</param>
+            <param name="enabled">활성화 여부</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.EnableButtonControl(System.Web.UI.Control,System.Boolean)">
+            <summary>
+            지정된 버튼들을 활성화 하거나 비활성화 한다.<br/>
+            버튼 컨트롤은 <b>Button(WebControls)</b>, <b>LinkButton</b>, <b>ImageButton</b>, <b>HtmlInputButton</b>,
+            <b>HtmlButton</b> 중 하나이어야 한다.
+            </summary>
+            <param name="button">버튼 타입의 컨트롤</param>
+            <param name="enabled">활성화 여부</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.SetButtonByAuthLevel">
+            <summary>
+            권한에 따라서 버튼을 활성화 또는 비활성화를 한다. 활성화/비활성화 되는 버튼 컨트롤의
+            ID는 <b>btnQuery</b>, <b>btnInsert</b>, <b>btnDelete</b>, <b>btnSave</b> 이어야만 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.SetButtonByAuthLevel(System.Web.UI.Control,System.Web.UI.Control,System.Web.UI.Control,System.Web.UI.Control)">
+            <summary>
+            권한에 따라서 버튼을 활성화 또는 비활성화를 한다. 버튼 타입은 <b>Button</b>, <b>LinkButton</b>,
+            <b>ImageButton</b>, <b>HtmlButton</b>, <b>HtmlInputButton</b> 들 중 하나이어야 한다.
+            </summary>
+            <param name="select">조회 버튼 컨트롤</param>
+            <param name="insert">추가 버튼 컨트롤</param>
+            <param name="delete">삭제 버튼 컨트롤</param>
+            <param name="save">저장 버튼 컨트롤</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.SetButtonByAuthLevel(System.Web.UI.Control[],System.Web.UI.Control[],System.Web.UI.Control[],System.Web.UI.Control[])">
+            <summary>
+            권한에 따라서 버튼을 활성화 또는 비활성화를 한다. 버튼 타입은 <b>Button</b>, <b>LinkButton</b>,
+            <b>ImageButton</b>, <b>HtmlButton</b>, <b>HtmlInputButton</b> 들 중 하나이어야 한다.
+            </summary>
+            <param name="selects">조회 버튼들의 배열</param>
+            <param name="inserts">추가 버튼들의 배열</param>
+            <param name="deletes">삭제 버튼들의 배열</param>
+            <param name="saves">저장 버튼들의 배열</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.BuildSecurityScript(System.Text.StringBuilder)">
+            <summary>
+            <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/>의 값을 반환하는 자바 스크립트를 만든다.
+            </summary>
+            <param name="sb">자바 스크립트를 추가할 <see cref="T:System.Text.StringBuilder"/> 객체</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.ShowMessageBox(System.String,System.String,System.Int32)">
+            <summary>
+            메시지 박스를 표시한다. 메시지 박스는 페이지의 마지막에
+            VB Script의 MsgBox 함수를 호출하도록 스크립트를 만든다.
+            </summary>
+            <param name="title">메시지 박스 제목</param>
+            <param name="message">메시지</param>
+            <param name="buttons">버튼 구성 (VBScript의 MsgBox 도움말 참조)</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.ShowMessageBox(System.String,System.String)">
+            <summary>
+            메시지 박스를 표시한다. 메시지 박스는 페이지의 마지막에
+            VB Script의 MsgBox 함수를 호출하도록 스크립트를 만든다.
+            </summary>
+            <param name="title">메시지 박스 제목</param>
+            <param name="message">메시지</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.ShowMessageBox(System.String)">
+            <summary>
+            메시지 박스를 표시한다. 메시지 박스는 페이지의 마지막에
+            VB Script의 MsgBox 함수를 호출하도록 스크립트를 만든다.
+            </summary>
+            <param name="message">메시지</param>
+        </member>
+        <member name="M:TheOne.Web.UI.PageBase.OnPreRender(System.EventArgs)">
+            <summary>
+            <b>MessageBox</b> 와 관련된 스크립트를 만든다.
+            </summary>
+            <param name="e">표준 이벤트</param>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.MasterCondition">
+            <summary>
+            마스터 데이터의 조회 조건을 가져오거나 설정한다.<br/>
+            MasterCondition 속성에 기록해 둔 값은 PostBack이 되더라도
+            그 값이 계속 유지된다. (ViewState 사용)
+            </summary>
+            <example>
+            <code>
+            MasterCondition = new string[] {"조회조건1", "조회조건2"};
+            ...
+            </code>
+            string[] conditions = (string[])MasterCondition;
+            </example>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.DetailCondition">
+            <summary>
+            마스터 데이터의 조회 조건을 가져오거나 설정한다.<br/>
+            MasterCondition 프로퍼티에 기록해 둔 값은 PostBack이 되더라도
+            그 값이 계속 유지된다. (ViewState 사용)
+            </summary>
+            <example>
+            <code>
+            DetailCondition = "조회조건"
+            ...
+            string conditions = (string)MasterCondition;
+            </code>
+            </example>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.Command">
+            <summary>
+            단일 화면에서 현재 화면의 명령 상태를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.PageViewState">
+            <summary>
+            자식 컨트롤들에서 ViewState에 접근할 수 있도록 ViewState를 public으로
+            제공 (for internal use only) - Loner
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.IsLogon">
+            <summary>
+            로그온이 성공되었는지 여부를 나타내는 값을 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.UserID">
+            <summary>
+            사용자 ID를 가져온다. 만일 로그온하지 않았다면 <b>null</b>을 반환한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.RequireLogon">
+            <summary>
+            페이지가 로그온의 요구여부를 나타내는 값을 가져오거나 설정한다.
+            이 속성의 값은 페이지의 생성자를 초기화할 경우에만 유효하게 설정할 수 있다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.LogonDefault">
+            <summary>
+            페이지의 인증에 대한 기본 값을 가져오거나 설정한다.
+            각 페이지가 <b>RequireLogon</b> 값을 설정하지 않는다면 이 값을 통해 인증
+            여부를 결정하게 된다.<br/>
+            이 속성 값은 Global.asax 의 Application_Start  이벤트에서
+            설정해 주는 것이 좋다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.RequireAuthorization">
+            <summary>
+            페이지가 권한 검사의 요구여부를 나타내는 값을 가져오거나 설정한다.
+            이 속성의 값은 페이지의 생성자를 초기화할 경우에만 유효하게 설정할 수 있다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.ProgramID">
+            <summary>
+            페이지의 프로그램 ID를 가져오거나 설정한다.
+            이 속성의 값은 페이지의 생성자를 초기화할 경우에만 유효하게 설정할 수 있다.
+            이 값을 설정하지 않으면 기본값으로 페이지(aspx)의 이름으로 설정된다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.PageName">
+            <summary>
+            현재 페이지의 이름을 가져오거나 설정한다.
+            이 속성의 값은 페이지의 생성자를 초기화할 경우에만 유효하게 설정할 수 있다.
+            이 값을 설정하지 않으면 ProgramID 값으로 초기화 된다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.SecurityContext">
+            <summary>
+            현재 페이지의 권한 검사를 수행할 <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 객체를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.RenderSecurityScript">
+            <summary>
+            권한 검사 관련 스크립트를 만들 것인가에 대한 여부를 나타내는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.LogonPageUrl">
+            <summary>
+            로그온을 수행하는 페이지 URL을 가져오거나 설정한다. 이 URL은 웹 어플리케이션
+            레벨에서 고유하다. 이 속성의 값은 Global.asax 의 Application_Start  이벤트에서
+            설정해 주는 것이 좋다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.AuthorizeDefault">
+            <summary>
+            페이지의 권한 검사에 대한 기본 값을 가져오거나 설정한다.
+            각 페이지가 <see cref="P:TheOne.Web.UI.PageBase.RequireAuthorization"/>을 설정하지 않는다면 이 값을 통해 권한 검사
+            여부를 결정하게 된다.
+            이 속성의 값은 Global.asax 의 Application_Start  이벤트에서
+            설정해 주는 것이 좋다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.AuthErrorPageUrl">
+            <summary>
+            페이지 액세스 권한이 없는 경우 이동하게 되는 페이지에 대한 URL을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.DefaultSecurityContext">
+            <summary>
+            권한 검사를 수행할 기본 <see cref="P:TheOne.Web.UI.PageBase.SecurityContext"/> 객체의 <see cref="T:System.Type"/> 객체를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.RenderSecurityScriptDefault">
+            <summary>
+            권한 검사 관련 스크립트를 만들것인가에 대한 여부를 나타내는 값을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.PageBase.StatusBarMessage">
+            <summary>
+            브라우저의 상태바에 표시할 메시지를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.COMMAND">
+            <summary>
+            각 페이지에 설정될 페이지 상태(추가모드, 수정모드 등)에 대한 형식을 지정한다.
+            </summary>
+            <whichType>enum</whichType>
+            <remarks>
+            단일 레코드에 대한 추가/수정/삭제를 수행하는 페이지는 현재의 데이터 조작 상태에
+            따라서 서로 다른 행동을 취해야 한다. 이를 위헤 PageBase 클래스는 현재 페이지의 상태를
+            설정하고 이 상태 값을 유지 시켜줄 수 있다. 이 때 PageBase 클래스가 현재 웹 페이지의
+            상태를 나타낼 때 COMMAND 열거자 타입을 사용한다. 다중 레코드에 관련된 페이지는
+            이 상태 값을 사용하지 않는 것이 일반적이다.
+            </remarks>
+        </member>
+        <member name="F:TheOne.Web.UI.COMMAND.UNKNOWN">
+            <summary>
+            페이지의 상태는 알수 없는 상태이다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.COMMAND.SELECT">
+            <summary>
+            페이지의 상태가 조회 상태이다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.COMMAND.INSERT">
+            <summary>
+            페이지의 상태가 삽입 상태이다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.COMMAND.UPDATE">
+            <summary>
+            페이지의 상태가 수정 상태이다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.COMMAND.DELETE">
+            <summary>
+            페이지의 상태가 삭제 상태이다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Configuration.ResourceDllHandlerSetting">
+            <summary>
+            &lt;resourceDllHandler&gt; 노드의 각 특성을 클래스의 속성으로 표시한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Util">
+            <summary>
+            WebForm에 관련된 다양한 유틸리티 함수들을 제공한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.Util.GetClientValidatedPostback(System.Web.UI.Control)">
+            <summary>
+            <b>Validation</b>을 수행하는 <b>PostBack</b> 자바 스크립트를 만든다.
+            </summary>
+            <remarks>
+            이 메서드는 자바 스크립트를 만들고 반환한다.       
+            </remarks>
+            <example>
+            <code>
+             { 
+             if (typeof(Page_ClientValidate) != 'function' ||  Page_ClientValidate()) 
+            __doPostBack('컨트롤 ID', '') 
+            }
+            </code>
+            </example>
+            <param name="control">PostBack 이벤트를 받을 컨트롤</param>
+            <returns>PostBack을 수행하는 자바 스크립트 코드를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Util.GetClientValidatedPostback(System.Web.UI.Control,System.String)">
+            <summary>
+            <b>Validation</b>을 수행하는 <b>PostBack</b> 자바 스크립트를 만든다.
+            </summary>
+            <remarks>
+            이 메서드는 자바 스크립트를 만들고 반환한다.        
+            </remarks>
+            <example>
+            <code>
+            { 
+            if (typeof(Page_ClientValidate) != 'function' ||  Page_ClientValidate()) 
+            __doPostBack('컨트롤 ID', '매개변수') 
+            }
+            </code>
+            </example>
+            <param name="control">PostBack 이벤트를 받을 컨트롤</param>
+            <param name="argument">PostBack 이벤트의 매개변수 문자열</param>
+            <returns>PostBack을 수행하는 자바 스크립트 코드를 반환한다.</returns>
+        </member>
+        <member name="M:TheOne.Web.Util.Alert(System.String)">
+            <summary>
+            자바스크립트 <b>alert()</b> 코드를 생성해주는 메서드이다.
+            <remarks>
+            개행문자가 들어있는 메시지라도 오류를 일으키지 않고
+            alert 창에서 그대로 반영되도록 처리한다.
+            </remarks>
+            </summary>
+            <param name="message">메시지</param>
+            <returns>alert() 수행 자바스크립트를 반환한다.</returns>
+        </member>
+        <member name="T:TheOne.Web.Resources.Default">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.DatePickerEx_OnPreRender_1">
+            <summary>
+              필수 입력 항목 입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.DatePickerType_OnPreRender_1">
+            <summary>
+              잘못된 날짜 형식입니다. ({0} 필요)과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_CopyFile_1">
+            <summary>
+              {0} 파일이 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_CopyFile_2">
+            <summary>
+              {0} 폴더가 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_GetFileBaseDir_1">
+            <summary>
+              Configuration Key의 값이 없습니다. \r\n Framework.config를 확인해주세요.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_MoveFile_1">
+            <summary>
+              {0} 파일이 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_MoveFile_2">
+            <summary>
+              {0} 폴더가 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_Rename_1">
+            <summary>
+              {0} 파일이 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.HttpFileHandler_Rename_2">
+            <summary>
+              {0} 폴더가 존재 하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.PageBase_EnableButtonControl_1">
+            <summary>
+              지원하지 않는 버튼 타입({0})입니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.ResourceDllHandler_ProcessRequest_1">
+            <summary>
+              스마트 클라이언트 관련 DLL이 존재하지 않습니다과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.Resources.Default.ValidationSummaryEx_OnPreRender_1">
+            <summary>
+              모달의 File명을 지정하지 않았습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Configuration.WebSection">
+            <summary>
+            NeoDEEX 구성요소의 &lt;WebSection&gt;을 클래스의 속성으로 나타낸다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.DataGridLinkButtonEx">
+            <summary>
+            DataGridEx 컨트롤 내부에서 사용되는 링크 버튼 컨트롤
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.Configuration.WebSectionFactory">
+            <summary>
+            추가적인 웹 설정 정보를 관리하고  
+            NeoDEXX 구성 파일에서 정의한 &lt;WebSection&gt; 노드의 내용을 가져오는 Factory 클래스이다. 
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.DatePickerType">
+            <summary>
+            날짜 입력 종류
+            </summary>
+            <whichType>enum</whichType>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.DatePickerType.YYYYMMDD">
+            <summary>
+            년월일 형태 ex) 2002-06-01
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.DatePickerType.YYYYMM">
+            <summary>
+            년월 형태 ex) 2002-06
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.DatePickerType.YYYY">
+            <summary>
+            년 형태 ex) 2002
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.DatePickerEx">
+            <summary>
+            DatePicker 컨트롤은 날짜 입력 박스를 제공함과 동시에 데이터 타입 검사 및
+            필수입력 항목 검사를 수행해 준다. 이 컨트롤은 TextBox 컨트롤에서 파생되었으므로
+            기본적인 TextBox 컨트롤의 기능을 모두 보유하고 있다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DatePickerEx.#ctor">
+            <summary>
+            DatePicker 컨트롤을 생성하고 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DatePickerEx.OnPreRender(System.EventArgs)">
+            <summary>
+            PreRender 이벤트 핸들러. validation 관련 컨트롤을 생성하고 적절한
+            설정을 수행한다.
+            </summary>
+            <param name="e">이벤트 매개변수</param>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.DatePickerEx.Render(System.Web.UI.HtmlTextWriter)">
+            <summary> 
+            DatePicker를 HTML로 렌더링 한다. DatePicker는 INPUT, IMG 태그 각 1개와
+            1개의 Validation Control (SPAN 태그) 및 DHTML Behavoir(커스텀 태그)로 구성되어 있다.
+            </summary>
+            <param name="output"> 출력을 쓸 HTML 작성기 </param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.ClientEventHandler">
+            <summary>
+            DatePicker 클라이언트 이벤트 핸들러
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.DatePickerType">
+            <summary>
+            DatePicker 컨트롤의 날짜 타입
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.Required">
+            <summary>
+            DatePicker 컨트롤이 필수 입력 사항인가 설정
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.RequiredMessage">
+            <summary>
+            필수 입력 오류시 나타낼 오류 메시지
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.ErrorMessage">
+            <summary>
+            날짜 타입 오류시 나타낼 오류 메시지
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.ErrorText">
+            <summary>
+            DatePicker에 오류가 발생했을 때 컨트롤 옆에 나타낼 문자(열)
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.Date">
+            <summary>
+            DatePicker 컨트롤의 날자값 (read-only)
+            </summary> 
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.DatePickerEx.ImageURL">
+            <summary>
+            DatePicker의 click되는 이미지URL
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ClientEventHandler">
+            <summary>
+            Client Event Handler 클래스
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ClientEventHandler.OnBlur">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ClientEventHandler.OnFocus">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.EOC_ClientEventHandler">
+            <summary>
+            EOC_ClientEventHandler가 propertyGrid에 나올때 expandable하게 나올수 있도록
+            convert해주는 클래스 
+            1. ExpandableObjectConverter class를 inherit해서 클래스를 만든다
+            2. CanConvertTo 만들어서 Dest Type이 이거 사용할 타입이랑 같으면 true return 
+            	아니면 base꺼 return
+            3. ConvertTo 오버라이드해서 destination; 스트링이고, 그 값이 사용할 타입이랑 같으면 
+            	컨버트할 적당한 형태를 string으로 return하고, 아니면 base class꺼 리턴
+            4. (Optional) 스트링으로 만들어놓은 형태를 바로 편집할수 있도록하려면 
+            	CanConvertFrom을 override해서 Source Type parameter가 스트링이면  true
+            	아니면 base class꺼 return
+            5. 스트링을 파싱해서 나온 값들을 원하는 destinationType에다가 넣어준다
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.EOC_ClientEventHandler.CanConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.EOC_ClientEventHandler.ConvertFrom(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="info"></param>
+            <param name="val"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.EOC_ClientEventHandler.ConvertTo(System.ComponentModel.ITypeDescriptorContext,System.Globalization.CultureInfo,System.Object,System.Type)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <param name="culture"></param>
+            <param name="val"></param>
+            <param name="destType"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ValidationSummaryEx">
+            <summary>
+            오류 항목들을 modal에 띄우는 custom validation summary control
+            </summary>
+            <remarks>
+            validation summary를 modal로 띄운다.<br/><br/>
+            옵션들 : <br/>
+            1. HTML로 띄우는 것 : modal은 HTML이고, 에러메시지들은 array로 넘어간다.<br/>
+                 ex) window.showModalDialog(xxx.html, arrayError, sFeatures);<br/>
+            2. ASPX로 띄우는 경우 : modal은 ASPX이고, 에러메시지들은 separator(default:'^')로 구분된 QueryString으로 넘어간다.<br/>
+                 ex) window.showModalDialog(xxx.aspx&amp;errorMsgs=aaa^bbb^ccc^, arrayError, sFeatures);<br/>
+            </remarks>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ValidationSummaryEx.#ctor">
+            <summary>
+            생성자
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.ValidationSummaryEx.OnPreRender(System.EventArgs)">
+            <summary>
+            base의 OnPreRender를 override해서 만들어진 method
+            ScriptBlock을 부르고, attribute들을 추가한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogHeight">
+            <summary>
+            modal dialog의 높이
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogWidth">
+            <summary>
+            modal dialog의 폭
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogLeft">
+            <summary>
+            modal dialog의 좌측에서부터의 위치
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogTop">
+            <summary>
+            modal dialog의 위에서부터의 위치
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogStatus">
+            <summary>
+            modal dialog에 상태표시줄이 있는지 없는지
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogResizable">
+            <summary>
+            modal이 resizable한지 설정
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogHelp">
+            <summary>
+            좌측 상단에 help icon이 있는지 여부
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogEdge">
+            <summary>
+            edge가 어떻게 생겼는지 (sunken, raised)
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogFileType">
+            <summary>
+            modal로 뜨는 페이지의 종류(aspx or html)
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.DialogFileName">
+            <summary>
+            모달 다이얼로그에 표시되는 컨텐츠(.htm 혹은 .aspx 등)의 URL
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.Seperator">
+            <summary>
+            모달이 aspx인 경우 querystring으로 넘어가는 
+            에러메시지들을 서로 구분하는 구분자
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.ValidationSummaryEx.ShowModalDialog">
+            <summary>
+            html형태의 모달을 띄울것인지의 여부
+            이 프로퍼티가 true이면 나머지들을 false로 만든다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ValidationSummaryEx.ModalFileType">
+            <summary>
+            모달의 파일종류
+            </summary>
+            <inner>Y</inner>
+            <whichType>enum</whichType>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.ModalFileType.html">
+            <summary>
+            html파일 형식의 모달 다이알로그
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.ModalFileType.aspx">
+            <summary>
+            aspx파일 형식의 모달 다이알로그
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalFeature">
+            <summary>
+            ValidationSummary Control에서 사용할 모달의 모양옵션에 쓸 enum
+            </summary>
+            <inner>Y</inner>
+            <whichType>enum</whichType>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalFeature.yes">
+            <summary>
+            ValidationSummary가 Modal 다이얼로그로 나타난다.
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalFeature.no">
+            <summary>
+            ValidationSummary가 Modeless 다이얼로그로 나타난다.
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalEdge">
+            <summary>
+            EnumModalEdge	: 모달의 edge모양 enum
+            </summary>
+            <inner>Y</inner>
+            <whichType>enum</whichType>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalEdge.sunken">
+            <summary>
+            모달 edge가 가라앉은 모양
+            </summary>
+        </member>
+        <member name="F:TheOne.Web.UI.WebControls.ValidationSummaryEx.EnumModalEdge.raised">
+            <summary>
+            모달 edge가 위로 올라온 모양
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.UI.WebControls.NumericUpDownEx">
+            <summary>
+            NumericUpDownEx에 대한 요약 설명입니다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.NumericUpDownEx.#ctor">
+            <summary>
+            NumericUpDownEx 컨트롤을 생성하고 초기화 한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.UI.WebControls.NumericUpDownEx.Render(System.Web.UI.HtmlTextWriter)">
+            <summary>
+            PreRender 이벤트 핸들러. validation 관련 컨트롤을 생성하고 적절한
+            설정을 수행한다.
+            </summary>
+            <param name="output">이벤트 매개변수</param>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.NumericUpDownEx.Increment">
+            <summary>
+            Increment 설정
+            설정한 값이 음수가 들어오면 양수로 바꿔서 Setting함
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.NumericUpDownEx.Minimum">
+            <summary>
+            Minimum Value 설정
+            </summary>
+        </member>
+        <member name="P:TheOne.Web.UI.WebControls.NumericUpDownEx.Maximum">
+            <summary>
+            Maximum Value 설정
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.LogonType">
+            <summary>
+            LogonUser API에서 사용하는 로그온 타입
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.LogonProvider">
+            <summary>
+            LogonUser API에서 사용하는 로그온 프로바이더
+            </summary>
+        </member>
+        <member name="T:TheOne.Web.SecurityAPI">
+            <summary>
+            WIN32 Security 관련 API 들에 대한 모음
+            </summary>
+        </member>
+        <member name="M:TheOne.Web.SecurityAPI.LogonUser(System.String,System.String,System.String,TheOne.Web.LogonType,TheOne.Web.LogonProvider)">
+            <summary>
+            주어진 사용자 ID로 로그온하여 액세스 토큰을 반환한다.
+            </summary>
+            <param name="userName">사용자 ID</param>
+            <param name="password">암호</param>
+            <param name="domainName">도메인 이름</param>
+            <param name="logonType">로그온 종류</param>
+            <param name="logonProvider">로그온 프로바이더</param>
+            <returns></returns>
+        </member>
+        <member name="T:TheOne.Web.HttpFileHandler">
+            <summary>사용자 지정 HTTP 처리기를 사용하여 서버 측 파일을 처리한다.</summary>
+            <remarks>
+            	HttpFileHandler를 사용하기 위해서는 Server Configuration 에서 FileBaseUrl / UserName /
+                Password 에 대한 설정을 해야 합니다.
+            	<para>FileBaseUrl 설정이 없는 경우에는 예외가 발생하며, UserName / Password 가 없는 경우에는 익명 사용자로
+                처리됩니다.</para>
+            </remarks>
+            <example>
+            	<para>IIS 7.0 및 WebDev 처리기 등록 예제</para>
+            	<para>&lt;configuration&gt;<br/>
+                &lt;system.webServer&gt;<br/>
+                &lt;handlers&gt;<br/>
+                &lt;add name="HTTPFileHandler" path="FileManager.axd" verb="*"
+                type="TheOne.Web.HttpFileHandler" resourceType="Unspecified"
+                preCondition="integratedMode" /&gt;<br/>
+                &lt;/handlers&gt;<br/>
+                &lt;/system.webServer&gt;<br/>
+                &lt;/configuration&gt;</para>
+            	<para></para>
+            	<para>파일 관리 경로의 루트 경로 설정 예제</para>
+            	<para>&lt;theone.configuration&gt;<br/>
+                &lt;generalSection&gt;<br/>
+                &lt;add name="FileBaseUrl" value="C:\Temp"&gt;&lt;/add&gt;<br/>
+                &lt;/generalSection&gt;<br/>
+                &lt;/theone.configuration&gt;</para>
+                
+            	<code lang="XML" title="Server Configuration 정보" description="Server Configuration 정보">
+            		<![CDATA[
+            <generalSection>
+                <add name="FileBaseUrl" value="경로"/>
+                <add name="UserName" value="도메인\계정"/>
+                <add name="Password" value="암호"/>
+            </generalSection>
+            
+            실제예:
+            <generalSection>
+                <add name="FileBaseUrl" value="C:\\Temp" />
+                <add name="UserName" value="user"/>
+                <add name="Password" value="pwd"/>
+            </generalSection>]]>
+            	</code>
+            </example>
+        </member>
+        <member name="M:TheOne.Web.HttpFileHandler.ProcessRequest(System.Web.HttpContext)">
+            <summary>
+            <see cref="T:System.Web.IHttpHandler"/> 인터페이스를 구현하는 사용자 지정 <b>HttpHandler</b>를 사용하여 파일 처리 명령을 실행한다.
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="P:TheOne.Web.HttpFileHandler.IsReusable">
+            <summary>
+            다른 요청에서 <see cref="T:System.Web.IHttpHandler"/> 인스턴스를 사용할 수 있는지 여부를 나타내는 값을 가져온다.
+            </summary>
+        </member>
+    </members>
+</doc>

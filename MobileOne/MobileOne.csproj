@@ -1,0 +1,305 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0CD91F2E-56DF-4D96-AE3F-CA169543C21A}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>MobileOne</RootNamespace>
+    <AssemblyName>MobileOne</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="IBatisNet.Common">
+      <HintPath>..\..\OneDLL\IBatisNet.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.Common.Logging.Log4Net">
+      <HintPath>..\..\OneDLL\IBatisNet.Common.Logging.Log4Net.dll</HintPath>
+    </Reference>
+    <Reference Include="IBatisNet.DataMapper">
+      <HintPath>..\..\OneDLL\IBatisNet.DataMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\OneDLL\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="conf\sql\bas\sql-bas-info.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="conf\sql\ras\sql-ras-rpt.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="css\jqm.slidemenu.css" />
+    <Content Include="css\themes\images\ajax-loader.gif" />
+    <Content Include="css\themes\images\icons-18-black.png" />
+    <Content Include="css\themes\images\icons-18-white.png" />
+    <Content Include="css\themes\images\icons-36-black.png" />
+    <Content Include="css\themes\images\icons-36-white.png" />
+    <Content Include="css\themes\jqmfb.css" />
+    <Content Include="css\themes\jqmfb.min.css" />
+    <Content Include="example\menu\about.html" />
+    <Content Include="example\menu\advertise.html" />
+    <Content Include="example\menu\contacts.html" />
+    <Content Include="example\menu\homepage.html" />
+    <Content Include="example\menu\index.html" />
+    <Content Include="example\menu\privacy.html" />
+    <Content Include="example\menu\responsive.css" />
+    <Content Include="example\menu\script.js" />
+    <Content Include="example\menu\style.css" />
+    <Content Include="example\menu\write.html" />
+    <Content Include="Global.asax" />
+    <Content Include="img\favicon.ico" />
+    <Content Include="img\hongkiat-lim.png" />
+    <Content Include="img\logo.png" />
+    <Content Include="img\logo_small.png" />
+    <Content Include="img\nav-btn%402x.png" />
+    <Content Include="img\nav-btn.png" />
+    <Content Include="img\pencilman.jpg" />
+    <Content Include="img\preloader.gif" />
+    <Content Include="img\smico.png" />
+    <Content Include="img\smico1.png" />
+    <Content Include="img\smico2.png" />
+    <Content Include="img\smico3.png" />
+    <Content Include="img\smico4.png" />
+    <Content Include="img\smico5.png" />
+    <Content Include="img\smico6.png" />
+    <Content Include="img\tabbar-solid-bg%402x.png" />
+    <Content Include="img\tabbar-solid-bg.png" />
+    <Content Include="img\tegan.jpg" />
+    <Content Include="Index.aspx" />
+    <Content Include="index.html" />
+    <Content Include="js\CommonFunc.js" />
+    <Content Include="js\ds.common.js" />
+    <Content Include="js\DsiCommon.js" />
+    <Content Include="js\jqm.globals.js" />
+    <Content Include="js\jqm.slidemenu.js" />
+    <Content Include="js\jquery.animate-enhanced.min.js" />
+    <Content Include="js\jquery.number.min.js" />
+    <Content Include="js\json2.js" />
+    <Content Include="js\jsonTable.js" />
+    <Content Include="Login.aspx" />
+    <Content Include="Menu.aspx" />
+    <Content Include="service\Hello.asmx" />
+    <Content Include="service\LoginService.asmx" />
+    <Content Include="service\RasService.asmx" />
+    <Content Include="view\ras\MRasEcnStsView.aspx" />
+    <Content Include="view\bas\TestBas1.aspx" />
+    <Content Include="view\MobilePage\DialogBox.aspx" />
+    <Content Include="view\MobilePage\MutiplePages.aspx" />
+    <Content Include="view\Backup\Login.aspx" />
+    <Content Include="view\MobilePage\BasicWebPage.aspx" />
+    <Content Include="view\Backup\Main.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="MenuTest.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Menu.aspx.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Menu.aspx.designer.cs">
+      <DependentUpon>Menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="model\bas\EsaUserModel.cs" />
+    <Compile Include="model\bas\EsaMenuVO.cs" />
+    <Compile Include="model\bas\EsaMenuModel.cs" />
+    <Compile Include="model\DsModel.cs" />
+    <Compile Include="model\ras\MRasEcnStsModel.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="service\Hello.asmx.cs">
+      <DependentUpon>Hello.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="service\LoginService.asmx.cs">
+      <DependentUpon>LoginService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="service\RasService.asmx.cs">
+      <DependentUpon>RasService.asmx</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="view\ras\MRasEcnStsView.aspx.cs">
+      <DependentUpon>MRasEcnStsView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\ras\MRasEcnStsView.aspx.designer.cs">
+      <DependentUpon>MRasEcnStsView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\bas\TestBas1.aspx.cs">
+      <DependentUpon>TestBas1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\bas\TestBas1.aspx.designer.cs">
+      <DependentUpon>TestBas1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\MobilePage\DialogBox.aspx.cs">
+      <DependentUpon>DialogBox.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\MobilePage\DialogBox.aspx.designer.cs">
+      <DependentUpon>DialogBox.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\MobilePage\MutiplePages.aspx.cs">
+      <DependentUpon>MutiplePages.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\MobilePage\MutiplePages.aspx.designer.cs">
+      <DependentUpon>MutiplePages.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\Backup\Login.aspx.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\Backup\Login.aspx.designer.cs">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\MobilePage\BasicWebPage.aspx.cs">
+      <DependentUpon>BasicWebPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\MobilePage\BasicWebPage.aspx.designer.cs">
+      <DependentUpon>BasicWebPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="view\Backup\Main.aspx.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="view\Backup\Main.aspx.designer.cs">
+      <DependentUpon>Main.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="model\bas\EsaUserVO.cs" />
+    <Compile Include="model\ras\MRasEcnStsVO.cs" />
+    <Compile Include="MenuTest.aspx.cs">
+      <DependentUpon>MenuTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MenuTest.aspx.designer.cs">
+      <DependentUpon>MenuTest.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="providers.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="SqlMap.config">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="packages.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="view\rpt\" />
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>5252</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:4415/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

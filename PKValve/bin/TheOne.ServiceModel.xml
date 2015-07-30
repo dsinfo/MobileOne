@@ -1,0 +1,746 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>TheOne.ServiceModel</name>
+    </assembly>
+    <members>
+        <member name="P:TheOne.ServiceModel.Configuration.AddressCollection.DefaultAddress">
+            <summary>
+            기본 주소 이름
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.AddressCollection.DefaultAddressSetting">
+            <summary>
+             기본 주소 이름에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.AddressSetting"/> 객체를 가져온다.
+             </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.AddressCollection.Items">
+            <summary>
+            주소 목록
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.AddressCollection.Item(System.String)">
+            <summary>
+             name에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.AddressSetting"/> 객체를 반환한다.
+            </summary>
+            <param name="name">AddressSetting에 대한 이름</param>
+            <returns><see cref="T:TheOne.ServiceModel.Configuration.AddressSetting"/> 객체</returns>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.AddressCollection.Item(System.Int32)">
+            <summary>
+            index에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.AddressSetting"/> 객체를 반환한다.
+            </summary>
+            <param name="index">인덱스</param>
+            <returns><see cref="T:TheOne.ServiceModel.Configuration.AddressSetting"/> 객체</returns>
+        </member>
+        <member name="T:TheOne.ServiceModel.ServiceHostFactory">
+            <summary>
+            들어오는 메시지에 응답하여 호스트 인스턴스가 동적으로 생성되는, 관리되는 호스팅 환경에서 ServiceHost의 인스턴스를 제공하는 팩터리 클래스.
+            </summary>
+            <example>
+            	<code lang="CS" title=".svc 예제" description=".svc 예제">
+            &lt;%@ ServiceHost Language="C#" Debug="true" Service="WCFSample.Biz.Employees" 
+                            Factory="TheOne.ServiceModel.ServiceHostFactory" %&gt;
+            </code>
+            	<code lang="XML" title="Configuration 예제" description="Configuration 예제">
+            &lt;configuration&gt;
+                &lt;configSections&gt;
+                    &lt;section name="theone.configuration" type="TheOne.Configuration.SectionHandler, OneCorLib"/&gt;
+                &lt;/configSections&gt;
+             
+              &lt;theone.configuration&gt;
+                    &lt;!-- WCF 에 대한 설정 --&gt;
+                    &lt;serviceModelSection&gt;
+                        &lt;bindings defaultBinding="Default"&gt;
+                            &lt;add name="Default" binding="wsHttpBinding" bindingConfiguration="wsHttpBinding" behaviorConfiguration="WCFSample.Behavior"/&gt;
+                        &lt;/bindings&gt;
+                    &lt;/serviceModelSection&gt;
+                &lt;/theone.configuration&gt;
+              
+                &lt;system.serviceModel&gt;
+             
+                &lt;bindings&gt;      
+                        &lt;wsHttpBinding&gt;
+                            &lt;binding name="wsHttpBinding" maxReceivedMessageSize="655360"&gt;
+                                &lt;readerQuotas maxStringContentLength="655360"/&gt;
+                                &lt;security mode="None"/&gt;
+                            &lt;/binding&gt;
+                        &lt;/wsHttpBinding&gt;      
+                    &lt;/bindings&gt;
+                
+                    &lt;behaviors&gt;
+                        &lt;serviceBehaviors&gt;
+                            &lt;behavior name="WCFSample.Behavior"&gt;
+                                &lt;serviceMetadata httpGetEnabled="true"/&gt;
+                                &lt;serviceDebug includeExceptionDetailInFaults="true"/&gt;
+                            &lt;/behavior&gt;
+                        &lt;/serviceBehaviors&gt;
+                    &lt;/behaviors&gt;
+                
+                &lt;/system.serviceModel&gt;
+            &lt;/configuration&gt;
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ServiceHostFactory.CreateServiceHost(System.String,System.Uri[])">
+            <summary>
+            특정 기본 주소를 사용하여 ServiceHost를 생성한다.
+            </summary>
+            <param name="constructorString">팩터리에서 생성하는 ServiceHostBase 인스턴스로 전달되는 초기화 데이터. </param>
+            <param name="baseAddresses">호스팅된 서비스의 기본 주소를 포함하는 Uri 형식의 Array 객체.</param>
+            <returns>특정 기본 주소를 사용하는 ServiceHost 객체.</returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.ServiceHostFactory.CreateServiceHost(System.Type,System.Uri[])">
+            <summary>
+            특정 기본 주소를 사용하여 지정된 서비스 형식에 대한 ServiceHost를 생성한다.
+            </summary>
+            <param name="serviceType">호스팅할 서비스의 형식.</param>
+            <param name="baseAddresses">호스팅된 서비스의 기본 주소를 포함하는 Uri 형식의 Array 객체.</param>
+            <returns>특정 기본 주소를 사용하는 ServiceHost 객체.</returns>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement">
+            <summary>
+            BindingElement 클래스이며, GZipEncoder를 사용한다.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.#ctor">
+            <summary>
+            GZipMessageEncodingBindingElement 클래스 생성자
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.#ctor(System.ServiceModel.Channels.MessageEncodingBindingElement)">
+            <summary>
+            GZipMessageEncodingBindingElement 클래스 생성자
+            </summary>
+            <param name="messageEncoderBindingElement"></param>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.CreateMessageEncoderFactory">
+            <summary>
+            WCF 가 사용하는 메서드로, MesageEncoder 개체를 생성하는 Factory 개체를 생성한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.Clone">
+            <summary>
+            BindingElement 개체를 복사한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.GetProperty``1(System.ServiceModel.Channels.BindingContext)">
+            <summary>
+            
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.BuildChannelFactory``1(System.ServiceModel.Channels.BindingContext)">
+            <summary>
+            ChannelFactory를 생성한다.
+            </summary>
+            <typeparam name="TChannel"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.BuildChannelListener``1(System.ServiceModel.Channels.BindingContext)">
+            <summary>
+            ChannelListener를 생성한다.
+            </summary>
+            <typeparam name="TChannel"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.CanBuildChannelListener``1(System.ServiceModel.Channels.BindingContext)">
+            <summary>
+            
+            </summary>
+            <typeparam name="TChannel"></typeparam>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.Info">
+            <summary>
+            OperationInfo 객체를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.InnerMessageEncodingBindingElement">
+            <summary>
+            MessageEncodingBindingElement 개체를 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElement.MessageVersion">
+            <summary>
+            메세지 버전을 가져오거나 설정한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement">
+            <summary>
+            Configuration 파일에서 GZip Encoder 를 Binding에 추가하기 위한 클래스.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.#ctor">
+            <summary>
+            GZipMessageEncodingElement 생성자
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.ApplyConfiguration(System.ServiceModel.Channels.BindingElement)">
+            <summary>
+            WCF가 호출하는 메서드로, BindingElement 에 configuration 설정을 적용하는 메서드
+            </summary>
+            <param name="bindingElement"></param>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.CreateBindingElement">
+            <summary>
+            WCF가 사용하는 메서드로 BindingElement 개체를 생성한다.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.BindingElementType">
+            <summary>
+            WCF가 사용하는 속성으로 BindingElement의 타입을 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.InnerMessageEncoding">
+            <summary>
+            내부적으로 사용되는 MessageEncoder 타입을 설정하거나 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.OperationMode">
+            <summary>
+            보내는 데이터에 대한 압축 여부
+            </summary> 
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.Threshold">
+            <summary>
+            압축이 필요한 메세지의 크기, 현재 지원하지 않음.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingElement.ReaderQuotas">
+            <summary>
+            XmlDictionaryReaders의 구성 가능한 할당량 값을 포함한다.
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.OperationInfo">
+            <summary>
+            MessageZip 익스텐션 작동 방식에 대한 정보를 담는 OperationInfo 클래스
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.GZipEncoder.OperationInfo.OperationMode">
+            <summary>
+            메시지 압축 방식을 설정 혹은 반환
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.GZipEncoder.OperationInfo.CompressThreshold">
+            <summary>
+            메시지 압축 기준 크기를 설정 혹은 반환.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.OperationInfo.#ctor(TheOne.ServiceModel.GZipEncoder.OperationModes,System.Int32)">
+            <summary>
+            메시지 압축 정보 생성자
+            </summary>
+            <param name="mode">메시지 압축 방식</param>
+            <param name="threshold">메시지 압축 기준 크기</param>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.OperationInfo.ToString">
+            <summary>
+            압축 정보의 문자
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.OperationModes">
+            <summary>
+            Soap 메시지 압축 모듈의 작동 모드 열거자
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.GZipEncoder.OperationModes.Auto">
+            <summary>
+            압축을 수행한다. 서버에서 Auto 모드가 사용되면 클라이언트가 압축 모듈을 사용하고 있는가
+            판단하여 압축 여부를 결정한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.GZipEncoder.OperationModes.Enabled">
+            <summary>
+            압축을 수행한다. 클라이언트에 압축 모듈이 포함되어있는가와 무관하게 압축을 수행한다.
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.GZipEncoder.OperationModes.Disabled">
+            <summary>
+            압축을 수행하지 않는다.
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.BindingHelper">
+            <summary>
+            Binding 관련 Helper 클래스
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.BindingHelper.GetBindingType(System.String)">
+            <summary>
+            문자열의 바인딩 정보를 BindingTypes 값으로 변환한다.
+            </summary>
+            <param name="bindingName">Binding 타입 이름.</param>
+            <returns><see cref="T:TheOne.ServiceModel.BindingTypes"/> 객체.</returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.BindingHelper.CreateBinding(TheOne.ServiceModel.BindingTypes,System.String)">
+            <summary>
+            바인딩 객체를 생성한다.
+            </summary>
+            <param name="bindingType"><see cref="T:TheOne.ServiceModel.BindingTypes"/> 객체.</param>
+            <param name="bindingConfiguration">바인딩 이름</param>
+            <returns>바인딩 객체.</returns>
+        </member>
+        <member name="T:TheOne.ServiceModel.BindingTypes">
+            <summary>
+            WCF에서 제공하는 바인딩의 종류
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.basicHttpBinding">
+            <summary>
+            basicHttpBinding 
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.wsHttpBinding">
+            <summary>
+            wsHttpBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.wsDualHttpBinding">
+            <summary>
+            wsDualHttpBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.wsFederationHttpBinding">
+            <summary>
+            wsFederationHttpBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.netTcpBinding">
+            <summary>
+            netTcpBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.netPeerTcpBinding">
+            <summary>
+            netPeerTcpBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.netNamedPipeBinding">
+            <summary>
+            netNamedPipeBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.netMsmqBinding">
+            <summary>
+            netMsmqBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.msmqIntegrationBinding">
+            <summary>
+            msmqIntegrationBinding
+            </summary>
+        </member>
+        <member name="F:TheOne.ServiceModel.BindingTypes.customBinding">
+            <summary>
+            customBinding
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.ServiceBase">
+            <summary>
+            ServiceBase 클래스는 WCF를 개발하기 위한 BaseClass이며 IIS에 호스트되어진 WCF Service를 접근할 때 인증여부를 
+            체크하여 임의적인 액세스가 하지 못하도록 하는 Helper 클래스이며 WCF Service를 구현시에 Interface와 함께 이 클래스를
+            상속받아 구현한다.
+            </summary>
+            <remarks>
+            WCF는 XML메세지를 처리하는 서비스를 구축하기 위한 프레임워크라고 할 수 있다. WCF는 HTTP, TCP, MSMQ등의 여러가지 프로토콜과
+            텍스트, 이진데이터, MTOM등의 다양한 XML표현을 사용하여 메세지를 전송 할 수 있도록 한다.
+            <br/>
+            WCF는 클라이언트와 메세지를 전송하기 위해 HTTP, HTTPS, MQMQ, TCP, 명명된PIPE를 지원하며 상호운영성을 위하여
+            웹서비스 표준인 WS-* 명세도 지원한다.
+            <br/>
+            WCF의 기능은 대부분 System.ServiceModel.dll 어셈블리에 있는 System.ServiceModel이라는 namespace에 포함되어 있다.
+            </remarks>
+            <br/>
+            상세한 내용은 MSDN을 참고한다.
+            <example>
+            <code>
+              // 클라이언트에서는 CreateChannel객체를 생성한다.
+              IOrders service = ClientFactory.CreateChannel&lt;IOrders&gt;("TheOne.WebSvc/OrderMgm.svc");
+              _dsOrders = service.GetOrders();
+            </code>
+            </example>   
+        </member>
+        <member name="M:TheOne.ServiceModel.ServiceBase.#ctor">
+            <summary>
+            ServiceBase의 생성자 
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.ServiceBase.#ctor(System.Boolean)">
+            <summary>
+            ServiceBase의 생성자
+            </summary>
+            <param name="requireAuthentication">인증 요구 여부</param>
+        </member>
+        <member name="M:TheOne.ServiceModel.ServiceBase.CreateUserInfoContext(System.String)">
+            <summary>
+            사용자 정보를 담은 UserInfoContext 객체를 반환한다.
+            </summary>
+            <param name="authInfo">인증 문자열</param>
+            <returns>UserInfoContext 객체 혹은 그 파생 객체</returns>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElementImporter">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.GZipEncoder.GZipMessageEncodingBindingElementImporter.#ctor">
+            <summary>
+            GZipMessageEncodingBindingElementImporter 클래스 생성자
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.Configuration.BindingSetting.#ctor">
+            <summary>
+            기본 생성자
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.GZipEncoder.GZipMessageEncoderFactory">
+            <summary>
+            GzipMessageEncoder 를 생성하는 클래스.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncoderFactory.Encoder">
+            <summary>
+            MessageEncoder 개체를 가져오기 위해서 프레임워크 내부에서 사용하는 속성.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.GZipEncoder.GZipMessageEncoderFactory.MessageVersion">
+            <summary>
+            메세지 버전을 가져온다.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.Configuration.AddressSetting.#ctor(System.String)">
+            <summary>
+            기본 생성자
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.ClientFactory">
+            <summary>
+            WCF 서비스 채널을 생성하는 클래스.
+            </summary>
+            <remarks>
+            WCF 서비스를 사용하기 위한 채널을 생성한다.  
+            <example>
+            configuration file
+            <code>
+              &lt;serviceModelSection&gt;
+                &lt;addresses defaultAddress="PMS"&gt;
+                    &lt;add name="PMS" url="http://pms.xxx.com/services/" /&gt;
+                    &lt;add name="TMP" url="http://tmp.xxx.com/services/" /&gt;
+                &lt;/addresses&gt;
+                &lt;bindings defaultBinding="Default"&gt;
+                    &lt;add name="Default" binding="basicHttpBinding" bindingConfiguration="basicHttpBinding" /&gt;
+                    &lt;add name="PMS" binding="wsHttpBinding" bindingConfiguration="wsHttpBinding" /&gt;
+                    &lt;add name="TMP" binding="netTcpBinding" bindingConfiguration="netTcpBinding" /&gt;
+                &lt;/bindings&gt;
+              &lt;/serviceModelSection&gt;
+            </code>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;(OrderServiceUrl);
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+            </remarks>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.#ctor">
+            <summary>
+            static 메쏘드만을 가지므로 생성자가 private 이다.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.GetTargetUrl(System.String)">
+            <summary>
+            Configuration 설정에 의해 웹 서비스 URL을 자동 설정한다.
+            </summary>
+            <param name="url">하드 코드된 URL</param>
+            <returns>수정된 URL</returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.GetTargetUrl(System.String,System.String)">
+            <summary>
+            Configuration 설정에 의해 웹 서비스 URL을 자동 설정한다.
+            </summary>
+            <param name="addressName">시스템 고유ID</param>
+            <param name="url">하드 코드된 URL</param>
+            <returns>수정된 URL</returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.GetEndpointAddress(System.String,System.String)">
+            <summary>
+            서비스 주소 변경 및 인증 정보를 추가한다.
+            </summary>
+            <param name="addressName">시스템 고유ID</param>
+            <param name="serviceUri">서비스 주소</param>
+            <returns>인증 정보가 추가된 EndpointAddress 개체.</returns>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String)">
+            <summary>
+            클라이언트의 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="serviceUri">사용하려는 서비스 주소</param>
+            <returns>생성하려는 인터페이스</returns>
+            <remarks>
+            기본 바인딩은 customBinding, 기본 바인딩 설정 이름은 TheOneCustomBinding 이다.
+            TheOneCustomBinding 이라는 설정이 application configuration에 없으면 오류가 발생한다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;(OrderServiceUrl);
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String,System.String)">
+            <summary>
+            클라이언트의 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="addressName">기본 주소 이름</param>
+            <param name="serviceUri">사용하려는 서비스의 상대 주소</param>
+            <returns>생성하려는 인터페이스</returns>
+            <remarks>
+            기본 바인딩은 Configuration에 설정된 값을 사용하며, Binding 정보가 없으면 basicHttpBinding 을 사용한다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;("TMP", OrderServiceUrl);
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String,System.String,System.String)">
+            <summary>
+            클라이언트의 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="addressName">기본 주소 이름</param>
+            <param name="serviceUri">사용하려는 서비스의 상대 주소</param>
+            <param name="bindingName">Configuration에 설정된 바인딩 이름</param>
+            <returns>T 타입의 WCF 서비스 프록시</returns>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;("TMP", OrderServiceUrl, "customBinding");
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String,TheOne.ServiceModel.BindingTypes,System.String)">
+            <summary>
+            클라이언트 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="serviceUri">사용하려는 서비스 주소</param>
+            <param name="bindings">바인딩 타입</param>
+            <param name="configurationName">바인딩에 대한 설정명</param>
+            <returns>생성하려는 인터페이스</returns>
+            <remarks>
+            기본 설정과 다른 바인딩및 바인딩 설정을 적용하는 경우에 사용되는 메서드이다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;(OrderServiceUrl, BindingTypes.basicHttpBinding, "TheOneCustomBinding");
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String,System.String,TheOne.ServiceModel.BindingTypes,System.String)">
+            <summary>
+            클라이언트 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="addressName">시스템 아이디</param>
+            <param name="serviceUri">사용하려는 서비스 주소</param>
+            <param name="bindingType">바인딩 타입</param>
+            <param name="configurationName">바인딩에 대한 설정명</param>
+            <returns>생성하려는 인터페이스</returns>
+            <remarks>
+            기본 설정과 다른 바인딩및 바인딩 설정을 적용하는 경우에 사용되는 메서드이다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;("TMP", OrderServiceUrl, BindingTypes.basicHttpBinding, "TheOneCustomBinding");
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="M:TheOne.ServiceModel.ClientFactory.CreateChannel``1(System.String,System.String,System.ServiceModel.Channels.Binding)">
+            <summary>
+            클라이언트 채널을 생성한다.
+            </summary>
+            <typeparam name="T">생성하려는 인터페이스</typeparam>
+            <param name="addressName">시스템 아이디</param>
+            <param name="serviceUri">사용하려는 서비스 주소</param>
+            <param name="binding">사용자 정의 Binding 객체</param>
+            <returns>생성하려는 인터페이스</returns>
+            <remarks>
+            기본 설정과 다른 바인딩및 바인딩 설정을 적용하는 경우에 사용되는 메서드이다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            Binding binding = new customBinding();
+            ... binding 속성 설정 ...
+            
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;("TMP", OrderServiceUrl, binding);
+            using (service as IDisposable)
+            {
+                DataSet ds = service.GetOrders();
+                dgvOrder.DataSource = ds.Tables[0];
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:TheOne.ServiceModel.Resources.Default">
+            <summary>
+              지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.ResourceManager">
+            <summary>
+              이 클래스에서 사용하는 캐시된 ResourceManager 인스턴스를 반환합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.Culture">
+            <summary>
+              이 강력한 형식의 리소스 클래스를 사용하여 모든 리소스 조회에 대한 현재 스레드의 CurrentUICulture
+              속성을 재정의합니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.AddressCollection_this_1">
+            <summary>
+              &lt;{0}&gt;의 &lt;addresses&gt;에서 \&quot;{1}\&quot;라는 설정을 찾을 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.AddressCollection_this_2">
+            <summary>
+              &lt;{0}&gt;의 &lt;bindings&gt;에서 \&quot;{1}\&quot;라는 설정을 찾을 수 없습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.BindingHelper_BindingTypes_1">
+            <summary>
+              {0} 이름의 BindingType이 존재하지 않습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncoderFactory_GZipMessageEncoder_1">
+            <summary>
+              messageEncoder과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncoderFactory_GZipMessageEncoder_2">
+            <summary>
+              A valid message encoder must be passed to the GZipEncoder과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncoderFactory_GZipMessageEncoderFactory_1">
+            <summary>
+              messageEncoderFactory과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncoderFactory_GZipMessageEncoderFactory_2">
+            <summary>
+              A valid message encoder factory must be passed to the GZipEncoder과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncodingElement_GetOperationInfo_1">
+            <summary>
+              메시지 압축 설정에서 OperationMode 값이 잘못되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Resources.Default.GZipMessageEncodingElement_GetOperationInfo_2">
+            <summary>
+              메시지 압축 설정에서 Threshold 값이 잘못되었습니다.과(와) 유사한 지역화된 문자열을 찾습니다.
+            </summary>
+        </member>
+        <member name="T:TheOne.ServiceModel.ServiceConstants">
+            <summary>
+            ServiceConstants 클래스는 WCF에서 사용하는 Binding의 종류를 상수를 정의하는 enum 클래스이다.
+            </summary>
+            <remarks>
+            WCF의 Binding은 하나 이상의 EndPoint를 사용하여 서비스를 구성하여 통신하는 방법을 정의한다. 
+            Binding의 종류에는 basicHttpBinding, wsHttpBinding, wsDualHttpBinding, wsFederationHttpBinding,
+            netTcpBinding, netPeerTcpBinding, netNamedPipesBinding, netMsmqBinding, msmqIntegrationBinding,
+            CustomBinding가 있다.
+            </remarks>
+            <example>
+            채널 생성
+            <code>
+            IOrderService service = ClientFactory.CreateChannel&lt;IOrderService&gt;(OrderServiceUrl, BindingTypes.basicHttpBinding, "basicHttpBinding");
+            </code>
+            </example>
+        </member>
+        <member name="T:TheOne.ServiceModel.Configuration.BindingCollection">
+            <summary>
+            WebService Address 변경 정보를 저장하는 클래스.
+            </summary>
+        </member>
+        <member name="M:TheOne.ServiceModel.Configuration.BindingCollection.#ctor">
+            <summary>
+            기본 생성자
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.BindingCollection.Items">
+            <summary>
+            주소 목록
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.BindingCollection.DefaultBinding">
+            <summary>
+            기본 주소 이름
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.BindingCollection.DefaultBindingSetting">
+            <summary>
+            기본 바인딩 이름에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.BindingSetting"/> 객체를 가져온다.
+            </summary>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.BindingCollection.Item(System.String)">
+            <summary>
+             name에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.BindingSetting"/> 객체를 반환한다.
+            </summary>
+            <param name="name">BindingSetting에 대한 이름</param>
+            <returns><see cref="T:TheOne.ServiceModel.Configuration.BindingSetting"/> 객체</returns>
+        </member>
+        <member name="P:TheOne.ServiceModel.Configuration.BindingCollection.Item(System.Int32)">
+            <summary>
+            index에 해당하는 <see cref="T:TheOne.ServiceModel.Configuration.BindingSetting"/> 객체를 반환한다.
+            </summary>
+            <param name="index">인덱스</param>
+            <returns><see cref="T:TheOne.ServiceModel.Configuration.BindingSetting"/> 객체</returns>
+        </member>
+    </members>
+</doc>
